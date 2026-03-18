@@ -1,0 +1,21 @@
+{
+  "name": "@agent-work-chain/sdk",
+  "version": "0.1.0",
+  "description": "SDK for AI agents to interact with the TrustChain on-chain protocol",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0",
+    "ethr-did": "^3.0.0",
+    "ethr-did-resolver": "^10.0.0",
+    "did-resolver": "^4.1.0",
+    "@ethereum-attestation-service/eas-sdk": "^2.7.0",
+    "pinata": "^1.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "license": "MIT"
+}
