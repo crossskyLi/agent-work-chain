@@ -67,7 +67,7 @@ class AgentClient {
     }
 
     async submitArbitration({ taskId, reason }) {
-        const result = await this._request('POST', '/v1/arbitration', { taskId, reason });
+        const result = await this._request('POST', '/v1/arbitration', { task_id: taskId, reason });
         return result.dispute_id;
     }
 }

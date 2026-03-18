@@ -9,9 +9,6 @@ from agent_trustchain.client import AgentClient
 
 
 class TestAgentClient:
-    def setup_method(self):
-        self.client = AgentClient(api_key="test-api-key", base_url="http://localhost:3000")
-
     @patch('agent_trustchain.client.requests.Session')
     def test_register_agent(self, mock_session_class):
         mock_session = MagicMock()
