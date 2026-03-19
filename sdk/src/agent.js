@@ -207,6 +207,33 @@ class TrustChainAgent {
     return this._reputation.registerSchema();
   }
 
+  // ========== Protocol Fee ==========
+
+  async getFeeConfig() {
+    const [recipient, bps, capWei] = await Promise.all([
+      this._contract.feeRecipient(),
+      this._contract.feeBps(),
+      this._contract.feeCapWei(),
+    ]);
+    return {
+      feeRecipient: recipient,
+      feeBps: Number(bps),
+      feeCapWei: capWei.toString(),
+      feeCapEth: ethers.formatEther(capWei),
+    };
+  }
+
+  async estimateFee(amountEth) {
+    const amountWei = ethers.parseEther(String(amountEth));
+    const feeWei = await this._contract.estimateFee(amountWei);
+    return {
+      amountEth: String(amountEth),
+      feeWei: feeWei.toString(),
+      feeEth: ethers.formatEther(feeWei),
+      netEth: ethers.formatEther(amountWei - feeWei),
+    };
+  }
+
   // ========== Internal ==========
 
   async _getArbitrationCost() {

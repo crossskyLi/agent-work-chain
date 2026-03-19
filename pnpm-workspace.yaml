@@ -1,0 +1,4 @@
+packages:
+  - backend
+  - sdk
+  - frontend-next

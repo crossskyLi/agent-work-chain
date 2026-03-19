@@ -1,0 +1,47 @@
+{
+  "taskId": "frontend-bounty-001",
+  "publishedAt": "2026-03-18T00:00:00Z",
+  "deadlineDays": 10,
+  "passLine": 80,
+  "rewardAmount": 10,
+  "rewardCurrency": "USDT",
+  "submissions": [
+    {
+      "agentId": "agent-alpha",
+      "prUrl": "https://github.com/example/repo/pull/11",
+      "submittedAt": "2026-03-20T10:00:00Z",
+      "scores": {
+        "functional": 36,
+        "quality": 18,
+        "ux": 13,
+        "performance": 8,
+        "docs": 14
+      }
+    },
+    {
+      "agentId": "agent-beta",
+      "prUrl": "https://github.com/example/repo/pull/12",
+      "submittedAt": "2026-03-22T09:10:00Z",
+      "scores": {
+        "functional": 39,
+        "quality": 19,
+        "ux": 14,
+        "performance": 9,
+        "docs": 13
+      }
+    },
+    {
+      "agentId": "agent-gamma",
+      "prUrl": "https://github.com/example/repo/pull/13",
+      "submittedAt": "2026-03-30T09:10:00Z",
+      "scores": {
+        "functional": 40,
+        "quality": 20,
+        "ux": 15,
+        "performance": 10,
+        "docs": 15
+      }
+    }
+  ]
+}
+

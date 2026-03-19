@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: Agent Work Chain Indexer API
+  version: 0.2.0
+  description: Read-only discovery API for tasks, agents, events, and billing.
+servers:
+  - url: http://localhost:3000
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: Service is alive
+  /health/ready:
+    get:
+      summary: Readiness probe
+      responses:
+        '200':
+          description: Service is ready
+  /v1/tasks:
+    get:
+      summary: List tasks
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [Created, InProgress, Completed, Disputed, Resolved, Cancelled]
+        - in: query
+          name: creator
+          schema:
+            type: string
+        - in: query
+          name: agent
+          schema:
+            type: string
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 200
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: Task list
+  /v1/tasks/{id}:
+    get:
+      summary: Get task detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task detail
+        '404':
+          description: Task not found
+  /v1/agents:
+    get:
+      summary: List agents
+      responses:
+        '200':
+          description: Agent list
+  /v1/agents/{address}:
+    get:
+      summary: Get agent detail
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Agent detail
+        '404':
+          description: Agent not found
+  /v1/events:
+    get:
+      summary: List events
+      responses:
+        '200':
+          description: Event list
+  /v1/query/human:
+    get:
+      summary: Human-facing unified query
+      responses:
+        '200':
+          description: Unified results for humans
+  /v1/query/agent:
+    get:
+      summary: Agent-facing structured query
+      parameters:
+        - in: query
+          name: intent
+          schema:
+            type: string
+            enum: [tasks, agents, events, overview]
+      responses:
+        '200':
+          description: Structured payload for agents
+  /v1/billing/summary:
+    get:
+      summary: Billing summary
+      responses:
+        '200':
+          description: Aggregated billing data
+  /v1/billing/settlements:
+    get:
+      summary: Settlement list
+      responses:
+        '200':
+          description: Settlement records
+  /v1/billing/settlements/{taskId}:
+    get:
+      summary: Settlement detail for task
+      parameters:
+        - in: path
+          name: taskId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Settlement details
+        '404':
+          description: No settlements for task

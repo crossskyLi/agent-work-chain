@@ -1,0 +1,30 @@
+{
+  "name": "@agent-work-chain/frontend-next",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3002 -H 127.0.0.1",
+    "build": "next build",
+    "start": "next start -p 3002"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.577.0",
+    "next": "^16.1.7",
+    "next-themes": "^0.4.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.27",
+    "code-inspector-plugin": "^1.4.4",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.2"
+  }
+}

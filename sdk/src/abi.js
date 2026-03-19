@@ -1,7 +1,7 @@
 'use strict';
 
 const TRUST_CHAIN_ABI = [
-  'constructor(address _arbitrator, bytes memory _arbitratorExtraData)',
+  'constructor(address _arbitrator, bytes _arbitratorExtraData, address _feeRecipient, uint16 _feeBps, uint256 _feeCapWei)',
 
   'function createTask(string taskId, string description, string inputCID) payable',
   'function assignTask(string taskId, string agentDID, address agentAddress)',
@@ -12,6 +12,12 @@ const TRUST_CHAIN_ABI = [
   'function arbitrator() view returns (address)',
   'function arbitratorExtraData() view returns (bytes)',
   'function disputeToTask(uint256) view returns (string)',
+  'function owner() view returns (address)',
+  'function feeRecipient() view returns (address)',
+  'function feeBps() view returns (uint16)',
+  'function feeCapWei() view returns (uint256)',
+  'function estimateFee(uint256 amount) view returns (uint256)',
+  'function setFeeConfig(address _feeRecipient, uint16 _feeBps, uint256 _feeCapWei)',
 
   'event TaskCreated(string taskId, address creator, uint256 reward)',
   'event TaskAssigned(string taskId, string agentDID, address agentAddress)',
@@ -20,6 +26,8 @@ const TRUST_CHAIN_ABI = [
   'event TaskDisputed(string taskId, uint256 disputeID)',
   'event RewardReleased(string taskId, address agent, uint256 amount)',
   'event RewardRefunded(string taskId, address creator, uint256 amount)',
+  'event FeeConfigUpdated(address feeRecipient, uint16 feeBps, uint256 feeCapWei)',
+  'event FeeCharged(string taskId, address recipient, uint256 feeAmount)',
   'event Ruling(address indexed _arbitrator, uint256 indexed _disputeID, uint256 _ruling)',
 ];
 

@@ -15,8 +15,18 @@ async function main() {
   const arbAddress = await mockArbitrator.getAddress();
   console.log(`MockArbitrator deployed to: ${arbAddress}`);
 
+  const feeRecipient = deployer.address;
+  const feeBps = 10; // 0.1%
+  const feeCapWei = hre.ethers.parseEther('0.001');
+
   const TrustChain = await hre.ethers.getContractFactory('TrustChain');
-  const trustChain = await TrustChain.deploy(arbAddress, '0x00');
+  const trustChain = await TrustChain.deploy(
+    arbAddress,
+    '0x00',
+    feeRecipient,
+    feeBps,
+    feeCapWei
+  );
   await trustChain.waitForDeployment();
   const tcAddress = await trustChain.getAddress();
   console.log(`TrustChain deployed to: ${tcAddress}`);
@@ -26,11 +36,18 @@ async function main() {
     chainId: 31337,
     trustChainAddress: tcAddress,
     mockArbitratorAddress: arbAddress,
+    feeConfig: {
+      feeRecipient,
+      feeBps,
+      feeCapWei: feeCapWei.toString(),
+    },
     deployer: deployer.address,
     deployedAt: new Date().toISOString(),
   };
 
-  const outPath = path.join(__dirname, '..', 'deployment-localhost.json');
+  const historyDir = path.join(__dirname, '..', 'history', 'deployments');
+  fs.mkdirSync(historyDir, { recursive: true });
+  const outPath = path.join(historyDir, 'deployment-localhost.json');
   fs.writeFileSync(outPath, JSON.stringify(deployment, null, 2));
   console.log(`Deployment info saved to ${outPath}`);
 }

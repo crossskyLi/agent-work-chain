@@ -41,6 +41,10 @@ async function main() {
     privateKey: process.env.AGENT_A_PRIVATE_KEY,
   });
 
+  console.log('=== 协议手续费配置 ===');
+  console.log(await agentA.getFeeConfig());
+  console.log('0.01 ETH 手续费预估:', await agentA.estimateFee('0.01'));
+
   console.log('=== Agent A: 注册身份 ===');
   const didA = await agentA.register({
     capabilities: ['task-management'],

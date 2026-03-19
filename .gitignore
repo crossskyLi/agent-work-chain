@@ -2,11 +2,36 @@ node_modules/
 __pycache__/
 *.pyc
 .env
+.env.*
+!.env.example
 dist/
 build/
 *.log
 .DS_Store
 coverage/
-cache/
+# Runtime cache directories (not source code)
+.cache/
+backend/cache/
+!backend/src/cache/
 artifacts/
 typechain-types/
+docs/internal/
+docs/economics/
+history/deployments/*.json
+
+# Local databases / runtime state
+backend/indexer.db
+backend/indexer.db-shm
+backend/indexer.db-wal
+
+# Next.js local artifacts
+frontend-next/node_modules/
+frontend-next/.next/
+frontend-next/package-lock.json
+.pnpm-store/
+
+# Internal thinking process / non-public notes
+history/
+docs/decisions/
+docs/playbooks/
+DEVELOPMENT.md

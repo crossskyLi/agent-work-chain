@@ -1,0 +1,754 @@
+[
+  {
+    "id": "finance",
+    "label": "金融与投资分析",
+    "baseWeight": 10,
+    "rationale": "直接影响资金配置、风险判断和投资决策，单次正确判断的人类工作价值通常最高。",
+    "count": 113,
+    "totalReviews": 7662,
+    "averageRating": 2.51,
+    "topExamples": [
+      {
+        "name": "Domain Value Estimator",
+        "url": "https://agent.ai/profile/domainvalue",
+        "description": "Provides an estimated value of a premium domain name with a simple explanation behind the valuation.\n\nUses historical transactional data + expert heuristics based on decades of experience.\n\nNote: You can get to this agent by visiting DomainValue.com (for convenience)\n",
+        "reviewCount": 5326,
+        "ratingValue": 4.38809613218175
+      },
+      {
+        "name": "Website Domain Valuation Expert",
+        "url": "https://agent.ai/profile/domainvaluation",
+        "description": "Appraises the value of a domain name by analyzing data from millions of actual domain transactions, providing accurate and up-to-date valuations based on recent market trends and sales history.",
+        "reviewCount": 987,
+        "ratingValue": 4.365754812563323
+      },
+      {
+        "name": "Perplexity Deep Research",
+        "url": "https://agent.ai/profile/perplexity-deep-research",
+        "description": "Perplexity Deep Research analyzes hundreds of sources, delivering expert-level insights in minutes instead of hours. This agent allows you to:\n- Plan and execute autonomous research\n- Access detailed insights across different domains (finance, marketing, ",
+        "reviewCount": 434,
+        "ratingValue": 4.124423963133641
+      },
+      {
+        "name": "Earnings Call Analyzer",
+        "url": "https://agent.ai/profile/earningschat",
+        "description": "Ask questions about a public company's earnings call discussion.",
+        "reviewCount": 227,
+        "ratingValue": 4.343612334801762
+      },
+      {
+        "name": "Personal portfolio generator ",
+        "url": "https://agent.ai/profile/personal-portfolio-from-linkedin",
+        "description": "Transforms your LinkedIn profile into a stunning personal portfolio website in seconds. Simply enter your LinkedIn ID, and our AI extracts your experience, skills, projects, and achievements to design a sleek, professional landing page. Select a desired theme and get your porfolio page downloadable as html easily.",
+        "reviewCount": 133,
+        "ratingValue": 4.075187969924812
+      }
+    ],
+    "humanWorkValueScore": 1207.66
+  },
+  {
+    "id": "software-data",
+    "label": "软件开发与数据自动化",
+    "baseWeight": 10,
+    "rationale": "可直接放大工程产出，且能替代重复的数据处理和技术执行工作。",
+    "count": 216,
+    "totalReviews": 2412,
+    "averageRating": 2.67,
+    "topExamples": [
+      {
+        "name": "Website Generator",
+        "url": "https://agent.ai/profile/website-generator",
+        "description": "Launch a professional site fast with B12.io’s AI Website Builder – no code, no design skills needed.\n\nNeed to build a website, create your first business site, or launch a startup online?\nThis tool helps you generate an entire website using AI — from structure and branding to content and forms.\n\nWhat You Can Create:\n\n    Full business websites\n\n    AI-powered multi-page sites\n\n    No-code websites for startups and SMBs\n\n    Online presence for services, portfolios, and consultants\n\n    Contact forms and built-in scheduling tools\n\n    Conversion-ready homepage and service pages\n\nWhat This Tool Can Help You Do:\n\n    Build website in minutes using AI\n\n    Create your site from a simple prompt\n\n    Generate homepage sections, navigation, and content\n\n    Design a site that matches your brand\n\n    Publish quickly without developers or designers\n\nWhy It Works:\n\n    Trusted by over 2 million users\n\n    Combines AI design, AI copywriting, and web publishing\n\n    Perfect for non-technical founders, marketers, freelancers, and business owners\n\nWant to build and launch a polished website today?\nTry B12.io — and let AI do the heavy lifting.",
+        "reviewCount": 586,
+        "ratingValue": 4.286689419795222
+      },
+      {
+        "name": "Mr. Doctor Professor ",
+        "url": "https://agent.ai/profile/Quantum_agent-v1",
+        "description": "Experto en python y algoritmos de programación y desarrollo de software, ML y QNC",
+        "reviewCount": 243,
+        "ratingValue": 4.333333333333333
+      },
+      {
+        "name": "Reddit Scraper",
+        "url": "https://agent.ai/profile/reddit-scraper",
+        "description": "See what people are saying about any topic!                                                            \n\nInternal Workflow:\n1. Create search queries based on the question\n2. Search hundreds of posts on reddit and their comments\n3. Check if the retrieved posts are authentic (filter out promotional and spammy posts) and are relevant to what the user is asking for\n4. Extracting insights from the posts and the top comments based on what the user wanted to know\n5. Return a comprehensive answer",
+        "reviewCount": 188,
+        "ratingValue": 3.925531914893617
+      },
+      {
+        "name": "Claude Opus 4",
+        "url": "https://agent.ai/profile/claude-opus-4",
+        "description": "Claude Opus 4 is Anthropic's high-performance model with exceptional reasoning and efficiency. It’s state-of-the art for coding and delivers significant improvements in content generation, data analysis, and planning.",
+        "reviewCount": 158,
+        "ratingValue": 4.3544303797468356
+      },
+      {
+        "name": "LinkedIn Phone Number Finder – Retrieve Accurate Mobile Numbers from LinkedIn Profiles",
+        "url": "https://agent.ai/profile/linkedin-phone-number-finder",
+        "description": "Need to connect with professionals directly? Our LinkedIn Phone Number Finder takes a LinkedIn profile URL and delivers the latest mobile number for that individual with the highest coverage and accuracy in the market. Get access to:\n\n? Verified mobile numbers from LinkedIn profiles\n? Real-time data for decision-makers & professionals\n? Highest accuracy & coverage available\n? Fast, reliable, and easy-to-use tool\n\nIdeal for sales teams, recruiters, and B2B marketers, this tool helps you boost outreach, connect with leads instantly, and improve your contact database with accurate phone numbers.",
+        "reviewCount": 127,
+        "ratingValue": 3.661417322834646
+      }
+    ],
+    "humanWorkValueScore": 1206.32
+  },
+  {
+    "id": "research-strategy",
+    "label": "行业研究与商业策略",
+    "baseWeight": 9.5,
+    "rationale": "支撑市场进入、竞争分析和商业判断，对管理层和创业团队的价值很高。",
+    "count": 421,
+    "totalReviews": 6202,
+    "averageRating": 2.68,
+    "topExamples": [
+      {
+        "name": "HubSpot App Marketplace Listing Grader",
+        "url": "https://agent.ai/profile/hubspot-app-marketplace-listing-grader",
+        "description": "This agent evaluates your HubSpot App Marketplace listing and provides guidance and tips to improve install growth and engagement. It leverages benchmark data from AppMarketplace.com to assess how your listing stacks up against others.",
+        "reviewCount": 1233,
+        "ratingValue": 4.403081914030819
+      },
+      {
+        "name": "Recent LinkedIn Posts",
+        "url": "https://agent.ai/profile/recent-linkedin-posts",
+        "description": "This agent summarizes the latest posts from a number of LinkedIn users. Just enter the profile URLs for the people you want to research.",
+        "reviewCount": 876,
+        "ratingValue": 4.373287671232877
+      },
+      {
+        "name": "Search Keyword Research ",
+        "url": "https://agent.ai/profile/w0282qmoaravu6o0",
+        "description": "Analyzes search volume, cost, and competitiveness of keywords to help you choose the most effective keywords for optimizing your SEO and advertising strategies.",
+        "reviewCount": 764,
+        "ratingValue": 4.112565445026178
+      },
+      {
+        "name": "Competitor Analyst",
+        "url": "https://agent.ai/profile/competitoranalyst",
+        "description": "null",
+        "reviewCount": 596,
+        "ratingValue": 2.9949664429530203
+      },
+      {
+        "name": "Industry Analysis",
+        "url": "https://agent.ai/profile/industry-analysis",
+        "description": "This agent delivers comprehensive competitive intelligence reports analyzing the top 5 companies in any industry you specify. Simply enter your target industry and receive detailed insights on competitor offerings, brand positioning, key differentiators, and strategic recommendations presented in professional HTML format. Perfect for business strategists, marketing professionals, and entrepreneurs who need actionable competitive insights to inform their market positioning and strategic decisions.",
+        "reviewCount": 400,
+        "ratingValue": 4.2325
+      }
+    ],
+    "humanWorkValueScore": 1179.7
+  },
+  {
+    "id": "sales",
+    "label": "销售与获客",
+    "baseWeight": 9.5,
+    "rationale": "直接连接收入增长，线索挖掘、转化和个性化沟通的人类价值非常高。",
+    "count": 314,
+    "totalReviews": 3811,
+    "averageRating": 2.5,
+    "topExamples": [
+      {
+        "name": "Buyer Persona Builder",
+        "url": "https://agent.ai/profile/icp-builder",
+        "description": "Most sales teams struggle to use persona frameworks because they focus on surface-level characteristics rather than understanding the deeper patterns that make someone a perfect fit. \n\nThis agent analyzes successful customers to reveal exactly who buys your product. With these insights, you'll get actionable recommendations for where to find more high-value prospects, how to spot their buying signals, and how to engage them effectively.",
+        "reviewCount": 1431,
+        "ratingValue": 4.3906359189378055
+      },
+      {
+        "name": "Conversion Rate Optimizer",
+        "url": "https://agent.ai/profile/conversionoptimizer",
+        "description": "Looks at a web page and provides tips on how to make it more effective and increase conversion rate.",
+        "reviewCount": 410,
+        "ratingValue": 3.607317073170732
+      },
+      {
+        "name": "Executive DISC Profile",
+        "url": "https://agent.ai/profile/Executive_DISC_Profile",
+        "description": "Given the name of an executive and company they work for, this agent will find their LinkedIn profile, LinkedIn posts and using that generate a DISC profile for the executive and give you tips on how to communicate with them.\nDominance (D), Influence (I), Steadiness (S), Conscientiousness (C):",
+        "reviewCount": 338,
+        "ratingValue": 4.1923076923076925
+      },
+      {
+        "name": "LinkedIn Profile Analyzer",
+        "url": "https://agent.ai/profile/linkedinanalyzer",
+        "description": "Analyze the LinkedIn profile of a user looks at their recent activity and posts and finds patterns for what's working.",
+        "reviewCount": 199,
+        "ratingValue": 3.6834170854271355
+      },
+      {
+        "name": "Zoom Call Ice Breaker",
+        "url": "https://agent.ai/profile/Ice-Breaker",
+        "description": "Tired of those awkward first minutes of a Zoom call trying to connect with the stranger on the other end of your call while other log on?\n\nInstead use this agent to dig for those shared interests or experiences. That's your golden ticket to make a real connection. Use that common ground to kick off an epic conversation and break the ice!",
+        "reviewCount": 138,
+        "ratingValue": 4.3768115942028984
+      }
+    ],
+    "humanWorkValueScore": 1167.49
+  },
+  {
+    "id": "legal",
+    "label": "法律与合规",
+    "baseWeight": 10,
+    "rationale": "合同、合规和风险审核的错误成本高，替代的是高单价脑力劳动。",
+    "count": 48,
+    "totalReviews": 605,
+    "averageRating": 2.84,
+    "topExamples": [
+      {
+        "name": "Logo Designer",
+        "url": "https://agent.ai/profile/logo-designer",
+        "description": "The Logo Designer AI Agent helps create logo designs based on the information you provide.  \n\n1. Enter your brand name.  \n2. Describe your brand, including details such as its purpose, values, or industry.  \n3. The AI generates a logo design based on your inputs.  \n\nImportant: It is your responsibility to verify that the generated logos do not infringe on any copyrights, trademarks, or other intellectual property rights before use.  \n\nThis tool is designed to assist with generating logo ideas and visuals quickly and efficiently. ",
+        "reviewCount": 473,
+        "ratingValue": 3.704016913319239
+      },
+      {
+        "name": "Linkedin Email Finder – Get Verified Business Emails from LinkedIn Profiles",
+        "url": "https://agent.ai/profile/linkedin-email-finder",
+        "description": "Looking for a reliable way to find business emails from LinkedIn profiles? Our LinkedIn Email Finder instantly extracts the latest verified work email of any professional using just their LinkedIn profile URL. Whether you're in sales, recruiting, or marketing, this tool helps you connect with decision-makers faster.\n\n🔹 Real-time business email discovery\n🔹 100% compliance with data privacy standards\n🔹 Ideal for B2B lead generation, hiring, and outreach\n\nBoost your outreach efficiency and increase response rates with the most accurate LinkedIn email lookup tool.",
+        "reviewCount": 29,
+        "ratingValue": 3.2413793103448274
+      },
+      {
+        "name": "Merch Design Creator",
+        "url": "https://agent.ai/profile/merch-design-creator",
+        "description": "The Merch Design Creator AI Agent helps you create merchandise designs and product listings. Here's how it works:\n\n1. Enter a Topic: Provide a design topic or theme, such as animals, quotes, or hobbies.\n2. Design Creation: The AI generates design concepts and unique images.\n3. Product Listing: It also creates product titles, descriptions, and keywords for platforms like Amazon Merch on Demand, Redbubble, or Spreadshirt.\n\nImportant: You must ensure that the generated images and text do not infringe on any copyrights, trademarks, or intellectual property rights before using them commercially.\n\nThis AI Agent streamlines the process of creating and marketing your merchandise!",
+        "reviewCount": 23,
+        "ratingValue": 4.869565217391305
+      },
+      {
+        "name": "LegalTech",
+        "url": "https://agent.ai/profile/legaltech",
+        "description": "This Ai will check your legal files and it will return anything that looks shady or out of place.",
+        "reviewCount": 10,
+        "ratingValue": 4.1
+      },
+      {
+        "name": "COMPLIANCE - Web Privacy Policy Compliance Audit",
+        "url": "https://agent.ai/profile/privacy-policy-audit",
+        "description": "Get feedback on what you can do to optimize your Privacy Policy and align it to the required Data Privacy Laws for selection region(s). \n\nNOTE - This Agent does a full audit, please give it about a minute to respond.\n\nDisclaimer: This Privacy Policy Compliance Audit is intended for informational purposes only and does not constitute legal advice. Compliance results are based on current public information and may not reflect recent regulatory changes. We recommend consulting a qualified legal professional for specific legal guidance.",
+        "reviewCount": 7,
+        "ratingValue": 2.2857142857142856
+      }
+    ],
+    "humanWorkValueScore": 1163.97
+  },
+  {
+    "id": "operations",
+    "label": "运营与行政流程",
+    "baseWeight": 9,
+    "rationale": "能削减大量中后台重复劳动，覆盖调度、文档处理、流程执行等高频工作。",
+    "count": 147,
+    "totalReviews": 632,
+    "averageRating": 2.91,
+    "topExamples": [
+      {
+        "name": "CVDroid - Professional Resume Generator",
+        "url": "https://agent.ai/profile/cvdroid",
+        "description": "CVDroid is an AI-powered career assistant that helps users craft professional, tailored, and impactful CVs effortlessly. Whether you're a fresh graduate, a career switcher, or an experienced professional, CVDroid analyzes your skills, experience, and career goals to generate optimized resumes that stand out to recruiters. With the latest AI technology, CVDroid ensures your CV meets modern hiring standards and ATS requirements.",
+        "reviewCount": 63,
+        "ratingValue": 3.984126984126984
+      },
+      {
+        "name": "PM Copilot",
+        "url": "https://agent.ai/profile/pm-copilot",
+        "description": "Meet Product Copilot – Your AI-Powered Chief Product Officer on Demand.\n\nProduct Copilot is the ultimate AI Agent designed to act as your personal copilot in product management. Think of it as your always-available Chief Product Officer, ready to help you brainstorm innovative product features, refine your roadmap, and make smarter, data-driven decisions. Whether you're ideating, prioritizing, or strategizing, Product Copilot is here to streamline your workflow and elevate your product game.",
+        "reviewCount": 57,
+        "ratingValue": 4.526315789473684
+      },
+      {
+        "name": "AI Response Comparator",
+        "url": "https://agent.ai/profile/ai-response-comparator",
+        "description": "This workflow is designed to compare the outputs for the same prompt across multiple AIs. It streamlines your workflow by allowing you to enter a single query and instantly see how leading models respond in an organized, side-by-side view.",
+        "reviewCount": 46,
+        "ratingValue": 4.1521739130434785
+      },
+      {
+        "name": "Social Genie (Social Media Manager)",
+        "url": "https://agent.ai/profile/Social-Genie-Ai-Social-Media-Manager",
+        "description": "Social Genie: Your AI-powered Social Media Manager. Perfect for digital marketers, freelancers, small businesses, influencers, and social media pros. Simplify content creation, scheduling, and audience engagement. Analyze performance, optimize posting times, and boost your online presence. Save time and elevate your brand with SociaLink's cutting-edge AI technology. Never miss a beat in the fast-paced world of social media. Let SociaLink handle the details while you focus on growing your business.",
+        "reviewCount": 41,
+        "ratingValue": 4.414634146341464
+      },
+      {
+        "name": "Agentic Team Formation Agent (by inloop.studio)",
+        "url": "https://agent.ai/profile/inloop-team",
+        "description": "Power human teams with AI Agents. Designed to elevate Human+AI Collaboration, this meta-agent takes a task and suggests ways to form a Human+AI Team.  Seamlessly integrating AI into your new teams workflow, with task delegation and team management.\n\nUnloc",
+        "reviewCount": 33,
+        "ratingValue": 4.515151515151516
+      }
+    ],
+    "humanWorkValueScore": 1084.83
+  },
+  {
+    "id": "marketing",
+    "label": "营销、SEO 与内容生产",
+    "baseWeight": 8,
+    "rationale": "最容易规模化使用，虽然单次价值常低于金融和法律，但总体需求极大。",
+    "count": 291,
+    "totalReviews": 18907,
+    "averageRating": 2.98,
+    "topExamples": [
+      {
+        "name": "Youtube Thumbnail Generator",
+        "url": "https://agent.ai/profile/youtube-thumb-gen",
+        "description": "This agent generates engaging eye-catching YouTube thumbnails using AI. It helps content creators design visuals to maximize clicks and views. ",
+        "reviewCount": 4787,
+        "ratingValue": 3.8429078754961354
+      },
+      {
+        "name": "Meme Maker",
+        "url": "https://agent.ai/profile/mememaker",
+        "description": "Automatically generates funny, on-trend memes by picking the right templates and crafting clever captions, making it easy to churn out viral content fast. All you need to do is provide the prompt (no pressure).",
+        "reviewCount": 3377,
+        "ratingValue": 3.8771098608232157
+      },
+      {
+        "name": "Video Script Generator",
+        "url": "https://agent.ai/profile/lt8gzzc4s59qym06",
+        "description": "Creates engaging scripts for various types of video content, such as explainer videos, product demos, and promotional videos. Assists content creators, marketers, and educators by automating the scriptwriting process, saving time and ensuring consistently high-quality output. ",
+        "reviewCount": 2750,
+        "ratingValue": 4.209454545454546
+      },
+      {
+        "name": "Fit to purpose image generator",
+        "url": "https://agent.ai/profile/fit_to_purpose_image_generator",
+        "description": "This specialized Image Generation agent guides users through a series of targeted prompts to capture all essential image parameters: theme, text content, featured objects, color palette, and visual style. By methodically gathering these creative specifications through an intuitive interface, the agent eliminates the complexity typically associated with image creation. Once all parameters are collected, the agent seamlessly processes these inputs through advanced generative AI models to produce images that precisely match user intent.",
+        "reviewCount": 2379,
+        "ratingValue": 4.201765447667087
+      },
+      {
+        "name": "Web Page Copy Editor",
+        "url": "https://agent.ai/profile/web-copy-editor",
+        "description": "Reviews all the text on a web page and offers tips to enhance clarity and effectiveness, helping you refine your content for better communication and impact.",
+        "reviewCount": 1306,
+        "ratingValue": 4.287901990811639
+      }
+    ],
+    "humanWorkValueScore": 1038.24
+  },
+  {
+    "id": "customer-support",
+    "label": "客户支持与服务",
+    "baseWeight": 8.5,
+    "rationale": "可显著降低客服工时并提高响应速度，对服务型业务和 SaaS 很有价值。",
+    "count": 33,
+    "totalReviews": 92,
+    "averageRating": 2.3,
+    "topExamples": [
+      {
+        "name": "Intercultural Communicator for the Neurodiverse Workplace",
+        "url": "https://agent.ai/profile/Intercultural-Communicator",
+        "description": "***When fully actualized, this agent may live natively in your messaging app (e.g. Slack, MS Team) or on your screen, providing you real-time job coaching/response options/tips/reminders as you chat with your neurotypical (or neurodivergent!) co-worker***\n\nHello!\nI am your dedicated AI ally designed to help you navigate workplace interactions across cultural boundaries. I offer empathetic support and practical guidance to help you confidently craft responses that are clear, respectful, and effective. \nLet's make chats shorter and sweeter together!\n\nHelpful for: Organizations with a neurodiversity program, particularly those with autism hiring • Teams working across time zones looking to enhance intercultural communication and collaboration • Neurodivergent employees, especially those living with autism, aiming to improve workplace communication and productivity\n\n",
+        "reviewCount": 17,
+        "ratingValue": 3.588235294117647
+      },
+      {
+        "name": "Electra AI",
+        "url": "https://agent.ai/profile/electrical-ai",
+        "description": "ElectraAI leverages advanced natural language processing (NLP) techniques to understand and respond to queries related to electrical engineering theory, practical applications, and problem-solving. It’s equipped with a robust knowledge base curated from authoritative sources, textbooks, and real-world examples, ensuring accurate and insightful answers.\nMade by subhash padmanabhan",
+        "reviewCount": 14,
+        "ratingValue": 4.142857142857143
+      },
+      {
+        "name": "Customer Feedback Analyzer",
+        "url": "https://agent.ai/profile/customer-feedback-analyzer",
+        "description": "Tired of sifting through endless survey responses and support tickets? The Customer Feedback Analyzer does the heavy lifting for you.\n\nSimply upload a file (or copy&paste) customer feedback from any source including: forms, HubSpot surveys, support tickets, or just plain text.\n\nGet instant clarity on: What your customers love, What needs some work, and the Top categories of customer feedback. ",
+        "reviewCount": 11,
+        "ratingValue": 4.363636363636363
+      },
+      {
+        "name": "Chat with Knowledge Base Files",
+        "url": "https://agent.ai/profile/chat-with-knowledge-base",
+        "description": "Upload files to knowledge bases and chat with them",
+        "reviewCount": 10,
+        "ratingValue": 3.3
+      },
+      {
+        "name": "FAQify",
+        "url": "https://agent.ai/profile/generate-faq",
+        "description": "FAQify is an AI-powered tool that allows users to input a website link, and it automatically generates a set of relevant FAQs based on the content of the website. It's perfect for quickly creating FAQ sections for any website, helping businesses provide clear, organized information to their visitors.",
+        "reviewCount": 8,
+        "ratingValue": 4
+      }
+    ],
+    "humanWorkValueScore": 981.67
+  },
+  {
+    "id": "ecommerce",
+    "label": "电商与商品增长",
+    "baseWeight": 8.5,
+    "rationale": "与商品上架、转化和营收直接相关，适合规模化替代运营劳动。",
+    "count": 15,
+    "totalReviews": 39,
+    "averageRating": 2.89,
+    "topExamples": [
+      {
+        "name": "GPT Illustration",
+        "url": "https://agent.ai/profile/gpt-illustration",
+        "description": "This AI agent uses GPT Image to create high-quality illustrations from text prompts. It's an ideal tool for generating eye-catching logos and merchandise designs tailored for print-on-demand platforms like Redbubble, Spreadshirt, and Amazon Merch. Perfect for turning creative ideas into professional, print-ready graphics.",
+        "reviewCount": 12,
+        "ratingValue": 4
+      },
+      {
+        "name": "E-commerce Description Enhancer",
+        "url": "https://agent.ai/profile/ecommerce-description-enhancer",
+        "description": "This agent generates optimized e-commerce product descriptions by collecting key inputs like Product Name, Features, Target Audience, SEO Keywords, and Tone.",
+        "reviewCount": 5,
+        "ratingValue": 4.8
+      },
+      {
+        "name": "Fabulous 7 Stocks: Today's Market Insights",
+        "url": "https://agent.ai/profile/Fab7Investor",
+        "description": "Stay ahead in the world of investing with insights into the Apple, Microsoft, Google parent Alphabet, Amazon.com, Nvidia, Meta Platforms and Tesla—a select group of high-performing companies shaping the market. \n\nStay updated with the latest news on Fab-7 stocks. Don’t forget to check in and run the agent daily!",
+        "reviewCount": 5,
+        "ratingValue": 4.2
+      },
+      {
+        "name": "Shopistore",
+        "url": "https://agent.ai/profile/shopidev",
+        "description": "This is an agent which will answer questions like is there a sale going on, what are the key products of an e-commerce store",
+        "reviewCount": 5,
+        "ratingValue": 3.6
+      },
+      {
+        "name": "Translate Google Play Store Listing",
+        "url": "https://agent.ai/profile/google-play-stre-list-translator",
+        "description": " Agent that translates google play store listing to target language \nchecks  for max length\ncheck google play policies",
+        "reviewCount": 5,
+        "ratingValue": 4.8
+      }
+    ],
+    "humanWorkValueScore": 961.53
+  },
+  {
+    "id": "hr",
+    "label": "招聘与人力资源",
+    "baseWeight": 7.5,
+    "rationale": "能缩短招聘和筛选时间，对中大型团队价值明显，但使用场景比销售更窄。",
+    "count": 52,
+    "totalReviews": 187,
+    "averageRating": 2.42,
+    "topExamples": [
+      {
+        "name": "Resume Improver",
+        "url": "https://agent.ai/profile/resume-improver",
+        "description": "The AI agent is designed to help job seekers create tailored, professional resumes and cover letters aligned with specific job descriptions. It uses AI to analyze job descriptions, identify key skills and qualifications, and optimize resumes for relevance and impact. The agent also crafts personalized cover letters that reflect the candidate’s strengths while addressing the job’s specific requirements.",
+        "reviewCount": 32,
+        "ratingValue": 3.625
+      },
+      {
+        "name": "JobFit CV",
+        "url": "https://agent.ai/profile/JobFit-CV",
+        "description": "Compares a CV with a JD and returns - \nA \"Match-score\" (1-10) based on required skills, responsibilities, experience; a \"Shortlist-Probability\" by matching keywords in a JD & CV; a list of missing-skills (keywords) in a CV (relevant for ATS screening)",
+        "reviewCount": 21,
+        "ratingValue": 5
+      },
+      {
+        "name": "JobMatch AI: Your Smart Job-Matching Companion",
+        "url": "https://agent.ai/profile/job-search",
+        "description": "An intelligent AI-powered job-matching agent that identifies ideal opportunities based on a candidate's skills and experience, streamlining the job search process and connecting talent with the right employers.",
+        "reviewCount": 21,
+        "ratingValue": 3.4285714285714284
+      },
+      {
+        "name": "Job Interview Coach - Pro",
+        "url": "https://agent.ai/profile/InterviewCoach",
+        "description": "I help candidates enhance their chances of success by providing key insights and personalized recommendations tailored to each job role. I offer in-depth guidance on how to craft your responses, optimize your body language, and anticipate interview questions. \n\nWith a focus on what interviewers are looking for, I empower users to build confidence, refine their answers, and stand out as the ideal candidate.",
+        "reviewCount": 15,
+        "ratingValue": 4
+      },
+      {
+        "name": "Resume Ranker",
+        "url": "https://agent.ai/profile/resume-ranker",
+        "description": "ResumeRankerAgent is an AI-powered tool that analyzes how well resumes align with a given job description and ranks them accordingly. Designed for both recruiters and job seekers, it provides a clear, ranked list of candidates based on qualifications, skills, and experience. Recruiters can streamline their screening process, while candidates can assess how well their resume fits a role and identify areas for improvement—all with instant, unbiased feedback.",
+        "reviewCount": 12,
+        "ratingValue": 4.25
+      }
+    ],
+    "humanWorkValueScore": 898.84
+  },
+  {
+    "id": "design-creative",
+    "label": "设计与创意生成",
+    "baseWeight": 6,
+    "rationale": "创意工作需求广，但业务价值波动较大，通常是辅助增强而非核心决策。",
+    "count": 87,
+    "totalReviews": 39167,
+    "averageRating": 3.15,
+    "topExamples": [
+      {
+        "name": "Flux Image Generator",
+        "url": "https://agent.ai/profile/fluximage",
+        "description": "Generates an image using the new Flux AI model.",
+        "reviewCount": 26608,
+        "ratingValue": 4.2341025255562235
+      },
+      {
+        "name": "Ideogram Image Generator",
+        "url": "https://agent.ai/profile/ideogramimage",
+        "description": "<p>Generates an image using the new Ideogram model. </p>",
+        "reviewCount": 5820,
+        "ratingValue": 4.040034364261168
+      },
+      {
+        "name": "Image Generator",
+        "url": "https://agent.ai/profile/imageGen1",
+        "description": "This Ai is fairly simple, you give it a prompt and it will return with an image for you to enjoy based off the prompt",
+        "reviewCount": 2577,
+        "ratingValue": 3.8296468762126503
+      },
+      {
+        "name": "Poster Creator",
+        "url": "https://agent.ai/profile/poster-creator",
+        "description": "This AI agent instantly generates eye-catching posters for events, products, and more using natural language prompts. It adapts design elements like layout, color, and style to match the theme and target audience. Whether it's a party invite or a product launch, the agent delivers polished visuals in seconds.",
+        "reviewCount": 1261,
+        "ratingValue": 3.9143536875495637
+      },
+      {
+        "name": "Recraft Image Generator",
+        "url": "https://agent.ai/profile/recraftimage",
+        "description": "Generates an image using the new Flux AI model.",
+        "reviewCount": 1096,
+        "ratingValue": 4.053832116788321
+      }
+    ],
+    "humanWorkValueScore": 826.41
+  },
+  {
+    "id": "education",
+    "label": "教育、培训与教练",
+    "baseWeight": 5.5,
+    "rationale": "适合知识传授和能力训练，但商业杠杆通常低于直接创收或降风险类工作。",
+    "count": 56,
+    "totalReviews": 234,
+    "averageRating": 2.62,
+    "topExamples": [
+      {
+        "name": "Unhelpful Life Goals Coach",
+        "url": "https://agent.ai/profile/unhelpful-life-goals-coach",
+        "description": "Looking for someone absolutely not qualified to give life advice? Well, here you go!",
+        "reviewCount": 104,
+        "ratingValue": 4.721153846153846
+      },
+      {
+        "name": "GenAlpha - The Gen Alpha Intelligence (Gen-AI)",
+        "url": "https://agent.ai/profile/GenAlpha",
+        "description": "GenAlpha Agent is your only way to survive the Gen Alpha Intelligence. This can be your handy Alpha-bet Decoder in the family.  Decode the latest slang, memes, and trends. Bridge the generation gap with your kids. Learn why everything is \"bussin'\" or \"sus",
+        "reviewCount": 39,
+        "ratingValue": 4.256410256410256
+      },
+      {
+        "name": "Case Study Willingness Index",
+        "url": "https://agent.ai/profile/case-study-willingness",
+        "description": "Discover which customers are most likely to participate in your case study requests.\nThis tool analyzes your customer list to find companies that have already published case studies with other vendors, then scores them based on:\n\nCase study history - How many times they've been featured in vendor case studies\nDepartment alignment - Whether the teams mentioned match your users\nUse case relevance - How similar their published use cases are to your solution\n",
+        "reviewCount": 10,
+        "ratingValue": 4.3
+      },
+      {
+        "name": "StudyBuddyAI",
+        "url": "https://agent.ai/profile/StudyBuddyAI",
+        "description": "The AI-Powered Study Buddy will assist students by generating quiz questions on specific topics, providing explanations for incorrect answers, and helping users learn more effectively. It can be used for academic purposes or self-improvement in any subject",
+        "reviewCount": 10,
+        "ratingValue": 3.7
+      },
+      {
+        "name": "Marriage Conflict Resolver",
+        "url": "https://agent.ai/profile/Marriage-Conflict-Resolver",
+        "description": "Marriage Conflict Resolver is your personal communication coach, helping you express your thoughts in a way your partner truly understands. Just guess your partner’s MBTI type, share what you want to say, and let the agent refine it to match their personality. Whether your partner is logical (like a Thinker) or emotional (like a Feeler), direct (like an Intuitive) or detail-oriented (like a Sensor), this agent bridges the gap—turning frustration into connection. Because sometimes, how you say it matters just as much as what you say! ?????",
+        "reviewCount": 9,
+        "ratingValue": 4.777777777777778
+      }
+    ],
+    "humanWorkValueScore": 704.04
+  },
+  {
+    "id": "productivity",
+    "label": "个人效率与通用助理",
+    "baseWeight": 5,
+    "rationale": "覆盖面最广，但大多是轻量任务增强，单项经济价值通常不如垂直专业工作。",
+    "count": 72,
+    "totalReviews": 659,
+    "averageRating": 2.66,
+    "topExamples": [
+      {
+        "name": "Travel Planner",
+        "url": "https://agent.ai/profile/travel-planner",
+        "description": "Want to go on vacation for a budget? come to this AI and it will try its hardest to give you places to go, the only thing it does not cover is the travel expense",
+        "reviewCount": 231,
+        "ratingValue": 2.9220779220779223
+      },
+      {
+        "name": "Email Subject Line Generator",
+        "url": "https://agent.ai/profile/h3ye9ac6blxeayxc",
+        "description": "Creates compelling email subject lines to improve open rates.",
+        "reviewCount": 67,
+        "ratingValue": 4.298507462686567
+      },
+      {
+        "name": "Makes Sense",
+        "url": "https://agent.ai/profile/makes-sense",
+        "description": " Got a brain full of brilliant chaos? Makes Sense is your organizational wizard. Dump all those scattered thoughts, random ideas, and mental notes into one place, and watch as it sorts everything into smart, actionable categories that actually work for your brain. Then shuffle things around until it feels just right — because the best system is the one you'll actually use. \n\nPart of the Sweet Spot team of agents. Find your Sweet Spot at https://agent.ai/agent/sweet-spot ",
+        "reviewCount": 56,
+        "ratingValue": 4.410714285714286
+      },
+      {
+        "name": "Chat with Files ",
+        "url": "https://agent.ai/profile/chat-with-files",
+        "description": "Upload files and chat with them",
+        "reviewCount": 37,
+        "ratingValue": 3.5135135135135136
+      },
+      {
+        "name": "Terms And Conditions Reader/Summarizer",
+        "url": "https://agent.ai/profile/tos-summarizer",
+        "description": "Have you ever been curious about what the TOS of a website actually says? give this Ai the url for it and it will read it and summarize the entire thing",
+        "reviewCount": 32,
+        "ratingValue": 4.21875
+      }
+    ],
+    "humanWorkValueScore": 671.12
+  },
+  {
+    "id": "other",
+    "label": "其他未明显归类",
+    "baseWeight": 4,
+    "rationale": "描述过短或场景较独特，暂时无法稳定归入高置信类别。",
+    "count": 405,
+    "totalReviews": 14276,
+    "averageRating": 2.58,
+    "topExamples": [
+      {
+        "name": "Domain Idea Generator",
+        "url": "https://agent.ai/profile/domain-suggestions",
+        "description": " Generate domain ideas and provide data on which ones are available for purchase, and what price they are available.\n\nSupports natural language so you can be specific about what you're looking for.",
+        "reviewCount": 8545,
+        "ratingValue": 4.298186073727326
+      },
+      {
+        "name": "DeepSeek Chatbot",
+        "url": "https://agent.ai/profile/deepseek-r1",
+        "description": "Use the latest DeepSeek-R1 model through our fast, US-based servers!",
+        "reviewCount": 3739,
+        "ratingValue": 4.18561112596951
+      },
+      {
+        "name": "Customer Persona Builder",
+        "url": "https://agent.ai/profile/pon27olqoj3z57f7",
+        "description": "Constructs detailed customer personas based on provided demographic and psychographic information to enhance targeting and messaging.",
+        "reviewCount": 115,
+        "ratingValue": 4.356521739130435
+      },
+      {
+        "name": "GPT 4.5",
+        "url": "https://agent.ai/profile/chat-with-openai-gpt-4-5",
+        "description": " This agent users OpenAI's most advanced chat model yet, featuring improved pattern recognition, broader knowledge, and enhanced creativity with fewer hallucinations.",
+        "reviewCount": 106,
+        "ratingValue": 4.547169811320755
+      },
+      {
+        "name": "HubSpot Marketplace Review Reply Generator",
+        "url": "https://agent.ai/profile/hubspot-app-marketplace-review-reply-generator",
+        "description": "“We all need people who will give us feedback. That’s how we improve.” – Bill Gates. This agent helps you identify and respond to reviews on your HubSpot Marketplace Listing quickly. It also extracts sentiment and structured feedback from reviews. Works with HubSpot App Marketplace, Template Marketplace, and Solutions Directory.",
+        "reviewCount": 57,
+        "ratingValue": 4.508771929824562
+      }
+    ],
+    "humanWorkValueScore": 638.4
+  },
+  {
+    "id": "health",
+    "label": "健康、心理与生活方式",
+    "baseWeight": 4.5,
+    "rationale": "用户需求真实，但多数场景偏建议型，商业付费和高价值决策密度较低。",
+    "count": 14,
+    "totalReviews": 69,
+    "averageRating": 1.95,
+    "topExamples": [
+      {
+        "name": "Ai Health Agent",
+        "url": "https://agent.ai/profile/Health",
+        "description": "This ai will try to help you with any health problem you have, always double check the output though.",
+        "reviewCount": 37,
+        "ratingValue": 3.6216216216216215
+      },
+      {
+        "name": "Meditate-Mini",
+        "url": "https://agent.ai/profile/meditate-mini",
+        "description": "Create a personalized guided meditation just for you. Simply share how you're feeling, and we'll craft a short, soothing session to match your mood. Whether you need stress relief, a mindfulness boost, or a moment of calm, this agent adapts to your needs. Take a few minutes to refresh your mind and spirit with a meditation tailored uniquely to you.",
+        "reviewCount": 21,
+        "ratingValue": 4.142857142857143
+      },
+      {
+        "name": "Askverse",
+        "url": "https://agent.ai/profile/AskverseAI",
+        "description": " Askverse is your go to problem solver. From health to tech, studies to daily life, it searches widely, learns from similar experiences, and explains solutions in clear, simple steps.",
+        "reviewCount": 4,
+        "ratingValue": 5
+      },
+      {
+        "name": "Fitness Meal Plan",
+        "url": "https://agent.ai/profile/fitness-meal-plan",
+        "description": "This agent helps you to build your meal plan and get a sharper body, lose fat or build muscle, based on your body index.\n\nSave time calculating the protein and calories of ingredients",
+        "reviewCount": 2,
+        "ratingValue": 3.5
+      },
+      {
+        "name": "Grocer Genie - Grocery & Meal planning Agent",
+        "url": "https://agent.ai/profile/GrocerGenie",
+        "description": " Reach your nutrition goals, smart ai plans your meals, creates your grocery list, avoids your allergies — and tells you exactly what to buy and cook. Zero thinking, only eating.",
+        "reviewCount": 2,
+        "ratingValue": 5
+      }
+    ],
+    "humanWorkValueScore": 561.41
+  },
+  {
+    "id": "entertainment",
+    "label": "娱乐、社交与轻内容",
+    "baseWeight": 3,
+    "rationale": "说明人们也在探索趣味化 agent，但对真实工作价值的贡献通常最小。",
+    "count": 72,
+    "totalReviews": 983,
+    "averageRating": 2.88,
+    "topExamples": [
+      {
+        "name": "Loading Message Generator",
+        "url": "https://agent.ai/profile/nhwrqdx5nvqt899a",
+        "description": "This agent creates fun and relevant loading messages to entertain users while your agent runs.",
+        "reviewCount": 322,
+        "ratingValue": 4.329192546583851
+      },
+      {
+        "name": "Philosophical Archetype Detector",
+        "url": "https://agent.ai/profile/mt8gcxqblc5pukic",
+        "description": "This agent is an expert in all schools of philosophy, including classical, modern, fringe, and lesser-known branches. The goal is to help you discover your unique alignment with various philosophical schools, offering them a fun and imaginative philosophical archetype based on their responses. This agent is for entertainment purposes only.",
+        "reviewCount": 106,
+        "ratingValue": 4.339622641509434
+      },
+      {
+        "name": "Writing Idea Generator",
+        "url": "https://agent.ai/profile/writing-prompt",
+        "description": "This Ai will generate fun writing prompts for you to write essays or stories to so you can share it with others.",
+        "reviewCount": 73,
+        "ratingValue": 3.671232876712329
+      },
+      {
+        "name": "Find your Ikigai and best fit jobs",
+        "url": "https://agent.ai/profile/ikigai",
+        "description": "The Japanese term \"Ikigai\" means \"raison d'être\" or \"your reason for being\". Finding your Ikigai leads to a strong sense of purpose at work and increased professional satisfaction. It is graphically represented as the intersection of what you enjoy, what you're good at, what you can get paid for and what the world needs. This agent helps you find your Ikigai, best fit jobs and upskilling opportunities.\n\nCreated by: BonBillo, a global social impact accelerator helping grow startups contributing towards the U.N. Sustainable Development Goals. \nWebsite: https://www.bonbillo.com/",
+        "reviewCount": 65,
+        "ratingValue": 4.276923076923077
+      },
+      {
+        "name": "Agent PopK – Trendy Songs turned Kid-Friendly!",
+        "url": "https://agent.ai/profile/PopK",
+        "description": "Transform your child's favorite trendy songs into age-appropriate masterpieces with Agent PopK – designed for parents who want a fun activity with their kids.\nAgent PopK takes the lyrics of the latest and most popular songs and rewrites them to ensure they are suitable and safe for young listeners and singers.\nIt attempts to maintain the original rhythm and sentence structure, so the transformed lyrics seamlessly fit the original tunes, allowing your child to enjoy singing the song for fun.\nSee an example of fully produced song with music here : https://youtu.be/W2w0QnHB1NE ",
+        "reviewCount": 64,
+        "ratingValue": 4.296875
+      }
+    ],
+    "humanWorkValueScore": 477.18
+  }
+]

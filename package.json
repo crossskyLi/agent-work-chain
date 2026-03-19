@@ -5,15 +5,23 @@
   "scripts": {
     "compile": "hardhat compile",
     "test:contracts": "hardhat test",
+    "test:e2e:local": "hardhat test test/e2e-local.test.js",
     "deploy:local": "hardhat run scripts/deploy-local.js --network hardhat",
     "deploy:base-sepolia": "hardhat run scripts/deploy.js --network base-sepolia",
     "deploy:base": "hardhat run scripts/deploy.js --network base",
-    "node": "hardhat node"
+    "test:sdk:sepolia": "node scripts/sepolia-sdk-smoke.js",
+    "mcp:query": "node mcp/query-mcp-server.js",
+    "hardhat:node": "hardhat node",
+    "site:dev": "pnpm -C backend dev",
+    "web:dev": "pnpm --filter @agent-work-chain/frontend-next dev",
+    "web:build": "pnpm --filter @agent-work-chain/frontend-next build",
+    "web:start": "pnpm --filter @agent-work-chain/frontend-next start"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "dotenv": "^16.4.0",
     "hardhat": "^2.22.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
 }

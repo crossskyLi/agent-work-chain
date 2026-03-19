@@ -15,9 +15,23 @@ async function main() {
   }
 
   const extraData = '0x00';
+  const feeRecipient = process.env.FEE_RECIPIENT || deployer.address;
+  const feeBps = Number(process.env.FEE_BPS || 10); // default 0.1%
+  const feeCapEth = process.env.FEE_CAP_ETH || '0.001';
+  const feeCapWei = hre.ethers.parseEther(feeCapEth);
+
+  if (feeBps < 0 || feeBps > 10_000) {
+    throw new Error('FEE_BPS must be between 0 and 10000');
+  }
 
   const TrustChain = await hre.ethers.getContractFactory('TrustChain');
-  const trustChain = await TrustChain.deploy(klerosAddress, extraData);
+  const trustChain = await TrustChain.deploy(
+    klerosAddress,
+    extraData,
+    feeRecipient,
+    feeBps,
+    feeCapWei
+  );
   await trustChain.waitForDeployment();
 
   const address = await trustChain.getAddress();
@@ -28,11 +42,19 @@ async function main() {
     chainId: hre.network.config.chainId,
     trustChainAddress: address,
     klerosArbitratorAddress: klerosAddress,
+    feeConfig: {
+      feeRecipient,
+      feeBps,
+      feeCapEth,
+      feeCapWei: feeCapWei.toString(),
+    },
     deployer: deployer.address,
     deployedAt: new Date().toISOString(),
   };
 
-  const outPath = path.join(__dirname, '..', `deployment-${network}.json`);
+  const historyDir = path.join(__dirname, '..', 'history', 'deployments');
+  fs.mkdirSync(historyDir, { recursive: true });
+  const outPath = path.join(historyDir, `deployment-${network}.json`);
   fs.writeFileSync(outPath, JSON.stringify(deployment, null, 2));
   console.log(`Deployment info saved to ${outPath}`);
 }

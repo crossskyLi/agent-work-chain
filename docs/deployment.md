@@ -1,159 +1,95 @@
-# 部署指南
+# 部署指南（pnpm）
 
-## 一、部署合约
-
-### 前置条件
-
-- Node.js >= 18
-- 一个有 ETH 余额的钱包（用于支付部署 Gas）
-
-### 本地部署（开发测试）
+## 1) 安装依赖
 
 ```bash
-# 安装依赖
-npm install
-
-# 本地部署（自带 MockArbitrator，无需外部服务）
-npm run deploy:local
+pnpm install
+pnpm -C backend install
+pnpm -C sdk install
 ```
 
-部署信息保存在 `deployment-localhost.json`。
-
-### 部署到 Base Sepolia（测试网）
+## 2) 配置环境变量
 
 ```bash
-# 复制环境变量模板
 cp .env.example .env
 ```
 
-编辑 `.env`，填入：
-- `DEPLOYER_PRIVATE_KEY` — 部署钱包私钥
-- `KLEROS_ARBITRATOR_ADDRESS` — Kleros 仲裁合约地址
+必填项：
+- `DEPLOYER_PRIVATE_KEY`
+- `KLEROS_ARBITRATOR_ADDRESS`
+- `FEE_RECIPIENT`（你的手续费钱包，不填默认部署者）
+- `FEE_BPS`（默认 10 = 0.1%）
+- `FEE_CAP_ETH`（手续费封顶，例如 0.001）
+
+## 3) 本地开发部署
 
 ```bash
-npm run deploy:base-sepolia
+pnpm compile
+pnpm deploy:local
+pnpm test:e2e:local
 ```
 
-部署信息保存在 `deployment-base-sepolia.json`。
-
-### 部署到 Base 主网
+## 4) Base Sepolia 部署
 
 ```bash
-npm run deploy:base
+pnpm deploy:base-sepolia
 ```
 
-### 获取测试 ETH
+部署后会生成 `deployment-base-sepolia.json`，请把地址写回 `.env`：
+- `TRUSTCHAIN_ADDRESS`
 
-Base Sepolia 测试网 ETH 可通过以下水龙头获取：
-- https://www.coinbase.com/faucets/base-ethereum-goerli-faucet
-- https://faucet.quicknode.com/base/sepolia
+## 5) SDK 联调（真实链）
 
----
+准备两个 Agent 钱包：
+- `AGENT_A_PRIVATE_KEY`
+- `AGENT_B_PRIVATE_KEY`
 
-## 二、安装 SDK
+并配置：
+- `PINATA_JWT`
+- `PINATA_GATEWAY`
+
+然后执行：
 
 ```bash
-cd sdk
-npm install
+pnpm test:sdk:sepolia
 ```
 
-SDK 可在任何 Node.js 项目中使用：
+这个脚本会完整跑一遍：注册 → 创建任务 → 分配 → 完成 → 释放奖励。
 
-```javascript
-const { TrustChainAgent } = require('@agent-work-chain/sdk');
-
-const agent = new TrustChainAgent({
-  privateKey: process.env.AGENT_PRIVATE_KEY,
-  rpcUrl: 'https://sepolia.base.org',
-  trustChainAddress: '0x...', // 从 deployment-*.json 获取
-  did: {
-    registryAddress: '0xd1D374DDE031075157fDb64536eF5cC13Ae75000',
-  },
-  ipfs: {
-    pinataJwt: process.env.PINATA_JWT,
-    pinataGateway: process.env.PINATA_GATEWAY,
-  },
-  eas: {
-    contractAddress: '0x4200000000000000000000000000000000000021',
-    schemaRegistryAddress: '0x4200000000000000000000000000000000000020',
-  },
-});
-```
-
----
-
-## 三、启动索引服务（可选）
-
-索引服务监听链上事件，提供任务发现和 Agent 发现 API。
+## 6) 启动 indexer + 官网
 
 ```bash
-cd backend
-npm install
+TRUSTCHAIN_ADDRESS=0x... pnpm -C backend start
 ```
 
-### 环境变量
+访问：
+- 官网：`http://localhost:3000`
+- 健康检查：`http://localhost:3000/health`
+- 任务发现：`/v1/tasks`
 
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
-| `PORT` | API 端口 | 3000 |
-| `BASE_SEPOLIA_RPC_URL` | RPC 端点 | https://sepolia.base.org |
-| `TRUSTCHAIN_ADDRESS` | 已部署的 TrustChain 地址 | **必填** |
-| `DB_PATH` | SQLite 数据库路径 | ./indexer.db |
-
-### 启动
-
-```bash
-TRUSTCHAIN_ADDRESS=0x... npm start
-```
-
-### 健康检查
-
-```bash
-curl http://localhost:3000/health
-```
-
----
-
-## 四、环境变量一览
+## 环境变量参考
 
 ```env
-# 网络
 BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
 BASE_RPC_URL=https://mainnet.base.org
 
-# 密钥（不要提交到 Git）
 DEPLOYER_PRIVATE_KEY=0x...
 BACKEND_PRIVATE_KEY=0x...
+AGENT_A_PRIVATE_KEY=0x...
+AGENT_B_PRIVATE_KEY=0x...
 
-# 合约地址（部署后填入）
 TRUSTCHAIN_ADDRESS=0x...
 KLEROS_ARBITRATOR_ADDRESS=0x...
 
-# ERC-1056 DID Registry
-DID_REGISTRY_ADDRESS=0xd1D374DDE031075157fDb64536eF5cC13Ae75000
+FEE_RECIPIENT=0x...
+FEE_BPS=10
+FEE_CAP_ETH=0.001
 
-# EAS (Base Sepolia)
+DID_REGISTRY_ADDRESS=0xd1D374DDE031075157fDb64536eF5cC13Ae75000
 EAS_CONTRACT_ADDRESS=0x4200000000000000000000000000000000000021
 EAS_SCHEMA_REGISTRY_ADDRESS=0x4200000000000000000000000000000000000020
 EAS_SCHEMA_UID=
 
-# IPFS
-PINATA_JWT=your_pinata_jwt
-PINATA_GATEWAY=your-gateway.mypinata.cloud
+PINATA_JWT=...
+PINATA_GATEWAY=...
 ```
-
----
-
-## 五、架构说明
-
-```
-Agent ──→ SDK ──→ TrustChain.sol (Base L2)
-                       ↕
-            ethr-did / IPFS / EAS / Kleros
-
-Indexer ← 监听链上事件 → SQLite → REST API（发现服务）
-```
-
-- **SDK 直连区块链**：所有业务操作（创建/完成/仲裁）通过 SDK 直接调用链上合约
-- **索引服务可选**：仅提供搜索/发现能力，不参与业务逻辑
-- **无数据库依赖**：链上即真相，索引服务使用 SQLite（可丢弃重建）

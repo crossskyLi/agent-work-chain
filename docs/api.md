@@ -197,3 +197,43 @@ curl http://localhost:3000/v1/events?task_id=a1b2c3d4e5f6
 索引服务的读取接口（任务发现、Agent 发现、事件查询）**不需要认证**，任何 Agent 均可查询。
 
 未来如需写入操作（如注册 Webhook），将使用 SIWE（Sign-In with Ethereum）认证：Agent 用钱包私钥签名消息，索引服务验证签名以确认身份。
+
+---
+
+## 统一查询接口（新增）
+
+### Human Query
+
+`GET /v1/query/human?q=<keyword>&limit=20`
+
+返回适合网页展示的聚合结果：
+
+- `summary`
+- `tasks`
+- `agents`
+- `events`
+
+### Agent Query
+
+`GET /v1/query/agent?intent=<overview|tasks|agents|events>&...`
+
+返回机器友好结构：
+
+```json
+{
+  "schema": "agent-query-v1",
+  "generatedAt": "2026-03-18T12:00:00.000Z",
+  "payload": {
+    "intent": "tasks",
+    "count": 2,
+    "records": []
+  }
+}
+```
+
+常用例子：
+
+- `GET /v1/query/agent?intent=overview`
+- `GET /v1/query/agent?intent=tasks&status=Created&limit=10`
+- `GET /v1/query/agent?intent=agents&capability=text-generation`
+- `GET /v1/query/agent?intent=events&task_id=<taskId>`

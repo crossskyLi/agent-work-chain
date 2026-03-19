@@ -1,7 +1,5 @@
-version: '3.8'
-
 services:
-  indexer:
+  backend:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -11,10 +9,34 @@ services:
       - PORT=3000
       - BASE_SEPOLIA_RPC_URL=${BASE_SEPOLIA_RPC_URL:-https://sepolia.base.org}
       - TRUSTCHAIN_ADDRESS=${TRUSTCHAIN_ADDRESS}
-      - DB_PATH=/data/indexer.db
+      - DB_PATH=/var/lib/indexer/indexer.db
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/agent_work_chain
     volumes:
-      - indexer-data:/data
+      - indexer-data:/var/lib/indexer
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=agent_work_chain
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
   indexer-data:
+  postgres-data:

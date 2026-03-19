@@ -1,151 +1,154 @@
 # Agent Work Chain
 
-AI Agent 去中心化信任基础设施 — 让 Agent 拥有可验证的身份、透明的任务执行、和链上信誉。
+面向 Agent 的链上协作协议：  
+身份可验证、任务可追踪、结算可审计、信誉可证明。
 
-## 架构
+## Web Console
 
-**SDK 直连区块链，后端只做索引。**
+Next.js 前端（英文双界面）：
+
+- Human Workspace: `http://127.0.0.1:3002/human`
+- Agent Workspace: `http://127.0.0.1:3002/agent`
+
+启动命令：
+
+```bash
+NEXT_PUBLIC_INDEXER_BASE_URL=http://localhost:3001 pnpm web:dev
+```
+
+## 包管理
+
+本项目统一使用 `pnpm`。
+
+```bash
+pnpm install
+```
+
+## 核心架构
 
 ```
 Agent A ──→ SDK ──→ TrustChain.sol (Base L2)  ←── SDK ←── Agent B
                          ↕
               ethr-did / IPFS / EAS / Kleros
                          ↕
-               Indexer (事件索引 + 发现服务)
+               Indexer (事件索引 + 发现服务 API)
 ```
 
-五层信任，只部署一个合约：
+## 手续费策略
 
-| 层 | 能力 | 设施 |
-|----|------|------|
-| Layer 1 身份 | DID 注册、能力声明 | ethr-did（已部署） |
-| Layer 2 任务 | 创建、分配、完成、Escrow | TrustChain.sol（自有） |
-| Layer 2 仲裁 | 争议提交、裁决 | Kleros（已部署） |
-| Layer 3 行为 | 不可篡改的操作记录 | 合约 Events（自动） |
-| Layer 4 数据 | 输入/输出数据验证 | IPFS via Pinata |
-| Layer 5 信誉 | 链上信誉证明 | EAS（已部署） |
+- 协议费默认：`0.1%`（`FEE_BPS=10`）
+- 可配置封顶：`FEE_CAP_ETH` / `feeCapWei`
+- 结算公式：`fee = min(reward * feeBps / 10000, feeCapWei)`
+- 收费钱包：`FEE_RECIPIENT`
 
-详见 [docs/architecture.md](docs/architecture.md)。
+管理员可链上动态配置：
 
-## 快速开始
+```solidity
+setFeeConfig(address feeRecipient, uint16 feeBps, uint256 feeCapWei)
+```
 
-### 1. 部署合约
+## 快速开始（本地）
 
 ```bash
-npm install
 cp .env.example .env
-# 编辑 .env 填入 DEPLOYER_PRIVATE_KEY 和 KLEROS_ARBITRATOR_ADDRESS
-
-# 本地测试（自带 MockArbitrator）
-npm run deploy:local
-
-# 部署到 Base Sepolia
-npm run deploy:base-sepolia
+pnpm install
+pnpm hardhat:node
+pnpm compile
+pnpm deploy:local
+pnpm test:e2e:local
 ```
 
-### 2. 使用 SDK
+## SDK 联调（Base Sepolia）
+
+在 `.env` 填好以下参数后执行：
+
+- `TRUSTCHAIN_ADDRESS`
+- `AGENT_A_PRIVATE_KEY`
+- `AGENT_B_PRIVATE_KEY`
+- `PINATA_JWT`
+- `PINATA_GATEWAY`
+- `KLEROS_ARBITRATOR_ADDRESS`
 
 ```bash
-cd sdk && npm install
+pnpm test:sdk:sepolia
 ```
 
-```javascript
-const { TrustChainAgent } = require('@agent-work-chain/sdk');
+该脚本会真实执行：
+1. Agent 注册 DID 能力
+2. 创建任务（含 Escrow）
+3. 分配任务
+4. 提交结果
+5. 释放奖励
 
-// 初始化 Agent（直连区块链）
-const agent = new TrustChainAgent({
-  privateKey: '0x...',
-  rpcUrl: 'https://sepolia.base.org',
-  trustChainAddress: '0x...',
-  did: { registryAddress: '0xd1D374DDE031075157fDb64536eF5cC13Ae75000' },
-  ipfs: { pinataJwt: '...', pinataGateway: '...' },
-  eas: {
-    contractAddress: '0x4200000000000000000000000000000000000021',
-    schemaRegistryAddress: '0x4200000000000000000000000000000000000020',
-  },
-});
+## 其他 Agent 接入方式
 
-// 注册身份（链上 DID）
-await agent.register({ capabilities: ['text-generation', 'data-analysis'] });
+最小接入步骤：
 
-// 发布任务（带 Escrow）
-const { taskId } = await agent.createTask({
-  description: 'Summarize this document',
-  inputData: { text: 'Lorem ipsum...' },
-  reward: '0.01',
-});
+1. 准备 Agent 钱包私钥
+2. 初始化 `TrustChainAgent`
+3. 调用 `register()` 上链注册能力
+4. 执行 `createTask / assignTask / submitResult / releaseReward`
 
-// 分配给另一个 Agent
-await agent.assignTask(taskId, 'did:ethr:0x...', '0x...');
-```
+示例见：
+- `docs/examples/sdk-usage.js`
+- `docs/examples/event-listening.js`
 
-```javascript
-// 另一个 Agent — 执行任务
-const executor = new TrustChainAgent({ privateKey: '0x...', ... });
-
-// 提交结果（自动上传 IPFS + 链上完成）
-await executor.submitResult(taskId, { summary: '...' });
-
-// 监听事件
-executor.on('TaskAssigned', (event) => {
-  console.log(`Got task: ${event.args[0]}`);
-});
-```
-
-### 3. 启动索引服务（可选）
+## 索引与发现服务
 
 ```bash
-cd backend && npm install
-TRUSTCHAIN_ADDRESS=0x... npm start
+cd backend
+pnpm install
+TRUSTCHAIN_ADDRESS=0x... pnpm start
 ```
 
-索引服务监听链上事件，提供任务发现和 Agent 发现 API：
+常用查询：
 
 ```bash
-# 查找可用任务
 curl http://localhost:3000/v1/tasks?status=Created
-
-# 查找 Agent
 curl http://localhost:3000/v1/agents?capability=text-generation
-
-# 查看任务事件历史
-curl http://localhost:3000/v1/events?task_id=xxx
+curl http://localhost:3000/v1/events?task_id=<taskId>
 ```
 
 ## 项目结构
 
 ```
 agent-work-chain/
-├── contracts/
-│   ├── TrustChain.sol          # 唯一合约：任务 + Escrow + Kleros 仲裁
-│   └── MockArbitrator.sol      # 本地测试用 mock
-├── scripts/
-│   ├── deploy.js               # 部署到 Base Sepolia / Base
-│   └── deploy-local.js         # 本地 Hardhat 部署
-├── sdk/                        # Agent SDK（直连区块链）
-│   └── src/
-│       ├── agent.js            # TrustChainAgent 主类
-│       ├── identity.js         # ethr-did 封装
-│       ├── ipfs.js             # Pinata IPFS 封装
-│       ├── reputation.js       # EAS 信誉封装
-│       ├── events.js           # 链上事件监听
-│       └── abi.js              # 合约 ABI
-├── backend/                    # 索引服务（可选）
-│   ├── server.js               # 发现 API
-│   ├── listener.js             # 链上事件监听器
-│   └── db.js                   # SQLite 存储
-├── docs/
-│   ├── architecture.md         # 五层信任架构
-│   └── blockchain-integration.md # 区块链集成方案
-├── hardhat.config.js
-├── package.json
-└── .env.example
+├── contracts/                # TrustChain.sol + MockArbitrator.sol
+├── sdk/                      # Agent SDK（直连链）
+├── backend/                  # Indexer + Discovery API
+├── frontend-next/            # Next.js 双界面（human/agent）
+├── scripts/                  # 部署与联调脚本
+├── test/                     # Hardhat 本地 E2E 测试
+├── history/                  # 轻量归档（主要保留部署产物）
+└── docs/                     # 架构/部署/API/知识库文档
+    ├── decisions/            # 决策记录（为什么这么做）
+    └── playbooks/            # 可执行操作手册
 ```
 
 ## 文档
 
-- [Architecture](docs/architecture.md) — 五层信任架构 + 四个信任维度
-- [Blockchain Integration](docs/blockchain-integration.md) — 区块链集成实施方案
+新手必看（建议顺序）：
+
+1. [项目开发文档](DEVELOPMENT.md)
+2. [系统架构](docs/architecture.md)
+3. [Indexer API](docs/api.md)
+4. [部署指南](docs/deployment.md)
+
+进阶与完整导航：
+
+- [Docs 导航](docs/README.md)
+- [Blockchain Integration](docs/blockchain-integration.md)
+- [MCP & Skill](docs/mcp-and-skill.md)
+- [Community Amplification Plan (EN)](docs/community-amplification-plan.md)
+- [社区放大计划（中文）](docs/community-amplification-plan.zh-CN.md)
+- [Decisions](docs/decisions/README.md)
+- [Playbooks](docs/playbooks/README.md)
+
+文档分层约定：
+
+- 面向其他开发者的文档放在 `docs/` 并纳入版本管理
+- 本地私有或临时分析文档放在 `docs/internal/`（已被 `.gitignore` 忽略）
+- 非共享的经济/运营草稿可放在 `docs/economics/`（当前按本地文件处理，不纳入版本管理）
 
 ## License
 

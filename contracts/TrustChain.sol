@@ -30,6 +30,10 @@ contract TrustChain is IArbitrable {
 
     IArbitrator public arbitrator;
     bytes public arbitratorExtraData;
+    address public owner;
+    address public feeRecipient;
+    uint16 public feeBps; // 0.1% = 10 bps
+    uint256 public feeCapWei;
 
     mapping(string => Task) public tasks;
     mapping(uint256 => string) public disputeToTask;
@@ -41,10 +45,33 @@ contract TrustChain is IArbitrable {
     event TaskDisputed(string taskId, uint256 disputeID);
     event RewardReleased(string taskId, address agent, uint256 amount);
     event RewardRefunded(string taskId, address creator, uint256 amount);
+    event FeeConfigUpdated(address feeRecipient, uint16 feeBps, uint256 feeCapWei);
+    event FeeCharged(string taskId, address recipient, uint256 feeAmount);
 
-    constructor(IArbitrator _arbitrator, bytes memory _arbitratorExtraData) {
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
+    constructor(
+        IArbitrator _arbitrator,
+        bytes memory _arbitratorExtraData,
+        address _feeRecipient,
+        uint16 _feeBps,
+        uint256 _feeCapWei
+    ) {
         arbitrator = _arbitrator;
         arbitratorExtraData = _arbitratorExtraData;
+        owner = msg.sender;
+        _setFeeConfig(_feeRecipient, _feeBps, _feeCapWei);
+    }
+
+    function setFeeConfig(address _feeRecipient, uint16 _feeBps, uint256 _feeCapWei) external onlyOwner {
+        _setFeeConfig(_feeRecipient, _feeBps, _feeCapWei);
+    }
+
+    function estimateFee(uint256 amount) public view returns (uint256) {
+        return _calculateFee(amount);
     }
 
     function createTask(
@@ -108,16 +135,14 @@ contract TrustChain is IArbitrable {
         require(bytes(task.taskId).length > 0, "Task not found");
         require(task.creator == msg.sender, "Not the task creator");
         require(task.status == TaskStatus.Completed, "Task not completed");
+        require(task.assignedAgent != address(0), "No assigned agent");
 
         uint256 amount = task.reward;
         address agent = task.assignedAgent;
         task.reward = 0;
         task.status = TaskStatus.Resolved;
-
-        (bool sent,) = agent.call{value: amount}("");
-        require(sent, "Transfer failed");
-
-        emit RewardReleased(taskId, agent, amount);
+        uint256 paid = _payoutWithFee(taskId, agent, amount);
+        emit RewardReleased(taskId, agent, paid);
     }
 
     // --- Kleros 仲裁集成 (ERC-792) ---
@@ -156,19 +181,18 @@ contract TrustChain is IArbitrable {
 
         Task storage task = tasks[taskId];
         require(task.status == TaskStatus.Disputed, "Task not in dispute");
+        require(_ruling == 1 || _ruling == 2, "Invalid ruling");
 
         uint256 amount = task.reward;
         task.reward = 0;
         task.status = TaskStatus.Resolved;
 
         if (_ruling == 1) {
-            (bool sent,) = task.assignedAgent.call{value: amount}("");
-            require(sent, "Transfer failed");
-            emit RewardReleased(taskId, task.assignedAgent, amount);
+            uint256 paid = _payoutWithFee(taskId, task.assignedAgent, amount);
+            emit RewardReleased(taskId, task.assignedAgent, paid);
         } else {
-            (bool sent,) = task.creator.call{value: amount}("");
-            require(sent, "Refund failed");
-            emit RewardRefunded(taskId, task.creator, amount);
+            uint256 refunded = _payoutWithFee(taskId, task.creator, amount);
+            emit RewardRefunded(taskId, task.creator, refunded);
         }
 
         emit Ruling(arbitrator, _disputeID, _ruling);
@@ -177,5 +201,44 @@ contract TrustChain is IArbitrable {
     function getTask(string memory taskId) public view returns (Task memory) {
         require(bytes(tasks[taskId].taskId).length > 0, "Task not found");
         return tasks[taskId];
+    }
+
+    function _setFeeConfig(address _feeRecipient, uint16 _feeBps, uint256 _feeCapWei) internal {
+        require(_feeRecipient != address(0), "Invalid fee recipient");
+        require(_feeBps <= 10_000, "Fee bps too high");
+        feeRecipient = _feeRecipient;
+        feeBps = _feeBps;
+        feeCapWei = _feeCapWei;
+        emit FeeConfigUpdated(_feeRecipient, _feeBps, _feeCapWei);
+    }
+
+    function _calculateFee(uint256 amount) internal view returns (uint256) {
+        if (feeBps == 0 || amount == 0) return 0;
+        uint256 fee = (amount * feeBps) / 10_000;
+        if (feeCapWei > 0 && fee > feeCapWei) {
+            fee = feeCapWei;
+        }
+        if (fee > amount) {
+            fee = amount;
+        }
+        return fee;
+    }
+
+    function _payoutWithFee(string memory taskId, address recipient, uint256 grossAmount) internal returns (uint256) {
+        require(recipient != address(0), "Invalid recipient");
+
+        uint256 feeAmount = _calculateFee(grossAmount);
+        uint256 netAmount = grossAmount - feeAmount;
+
+        if (feeAmount > 0) {
+            (bool feeSent,) = feeRecipient.call{value: feeAmount}("");
+            require(feeSent, "Fee transfer failed");
+            emit FeeCharged(taskId, feeRecipient, feeAmount);
+        }
+
+        (bool sent,) = recipient.call{value: netAmount}("");
+        require(sent, "Transfer failed");
+
+        return netAmount;
     }
 }
