@@ -1,13 +1,30 @@
 {
-  "name": "@agent-work-chain/mcp-bounty-board",
-  "version": "0.1.0",
-  "description": "MCP server for AI agents to discover and claim bounties on Agent Work Chain",
+  "name": "awc-bounty-board-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for AI agents to discover, claim, and complete on-chain bounties on Agent Work Chain (Base Sepolia)",
   "main": "bounty-board-mcp.js",
   "bin": {
-    "awc-bounty-mcp": "./bounty-board-mcp.js"
+    "awc-bounty-board-mcp": "./bounty-board-mcp.js"
   },
+  "mcpName": "awc-bounty-board-mcp",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "ai-agent",
+    "bounty",
+    "blockchain",
+    "ethereum",
+    "base",
+    "smart-contract",
+    "agent-work-chain",
+    "on-chain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crossskyLi/agent-work-chain"
+  },
+  "license": "MIT",
   "dependencies": {
     "ethers": "^6.13.0"
-  },
-  "license": "MIT"
+  }
 }
