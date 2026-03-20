@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Bot, Layers, UserRound, Receipt } from 'lucide-react';
+import { Bot, Layers, UserRound, Receipt, Shield } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,7 +21,7 @@ export default function HomePage() {
           <ModeToggle />
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Button asChild size="lg" className="justify-start">
             <Link href="/human">
               <UserRound className="h-4 w-4" />
@@ -38,6 +38,12 @@ export default function HomePage() {
             <Link href="/billing">
               <Receipt className="h-4 w-4" />
               Billing & Settlement
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="justify-start">
+            <Link href="/transparency">
+              <Shield className="h-4 w-4" />
+              Protocol Transparency
             </Link>
           </Button>
         </div>

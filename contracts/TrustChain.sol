@@ -38,6 +38,14 @@ contract TrustChain is IArbitrable {
     mapping(string => Task) public tasks;
     mapping(uint256 => string) public disputeToTask;
 
+    // --- Bounty Board: competitive claiming ---
+    string[] private _openBountyIds;
+    mapping(bytes32 => uint256) private _bountyIdx; // keccak256(taskId) => 1-based index
+
+    // --- Agent Staking: sunk cost for serious participants ---
+    uint256 public minStake;
+    mapping(address => uint256) public stakes;
+
     event TaskCreated(string taskId, address creator, uint256 reward);
     event TaskAssigned(string taskId, string agentDID, address agentAddress);
     event InputSubmitted(string taskId, string inputCID);
@@ -47,6 +55,13 @@ contract TrustChain is IArbitrable {
     event RewardRefunded(string taskId, address creator, uint256 amount);
     event FeeConfigUpdated(address feeRecipient, uint16 feeBps, uint256 feeCapWei);
     event FeeCharged(string taskId, address recipient, uint256 feeAmount);
+    event BountyCreated(string taskId, address creator, uint256 reward);
+    event TaskClaimed(string taskId, string agentDID, address agentAddress);
+    event BountyCancelled(string taskId, address creator, uint256 refund);
+    event AgentStaked(address indexed agent, uint256 amount, uint256 total);
+    event AgentWithdrew(address indexed agent, uint256 amount, uint256 remaining);
+    event StakeSlashed(address indexed agent, uint256 slashed, uint256 remaining);
+    event MinStakeUpdated(uint256 oldMin, uint256 newMin);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
@@ -73,6 +88,39 @@ contract TrustChain is IArbitrable {
     function estimateFee(uint256 amount) public view returns (uint256) {
         return _calculateFee(amount);
     }
+
+    // --- Agent Staking ---
+
+    function setMinStake(uint256 _minStake) external onlyOwner {
+        uint256 old = minStake;
+        minStake = _minStake;
+        emit MinStakeUpdated(old, _minStake);
+    }
+
+    function stake() external payable {
+        require(msg.value > 0, "Must send ETH");
+        stakes[msg.sender] += msg.value;
+        emit AgentStaked(msg.sender, msg.value, stakes[msg.sender]);
+    }
+
+    function withdrawStake(uint256 amount) external {
+        require(stakes[msg.sender] >= amount, "Insufficient stake");
+        stakes[msg.sender] -= amount;
+        (bool sent,) = msg.sender.call{value: amount}("");
+        require(sent, "Transfer failed");
+        emit AgentWithdrew(msg.sender, amount, stakes[msg.sender]);
+    }
+
+    function slashStake(address agent, uint256 amount) external onlyOwner {
+        uint256 actual = amount > stakes[agent] ? stakes[agent] : amount;
+        require(actual > 0, "Nothing to slash");
+        stakes[agent] -= actual;
+        (bool sent,) = feeRecipient.call{value: actual}("");
+        require(sent, "Transfer failed");
+        emit StakeSlashed(agent, actual, stakes[agent]);
+    }
+
+    // --- Tasks ---
 
     function createTask(
         string memory taskId,
@@ -198,6 +246,71 @@ contract TrustChain is IArbitrable {
         emit Ruling(arbitrator, _disputeID, _ruling);
     }
 
+    // --- Bounty Board: open bounties any agent can claim ---
+
+    function createBounty(
+        string memory taskId,
+        string memory description,
+        string memory inputCID
+    ) public payable {
+        createTask(taskId, description, inputCID);
+        _openBountyIds.push(taskId);
+        _bountyIdx[_bountyKey(taskId)] = _openBountyIds.length;
+        emit BountyCreated(taskId, msg.sender, msg.value);
+    }
+
+    function claimTask(string memory taskId, string memory agentDID) public {
+        require(minStake == 0 || stakes[msg.sender] >= minStake, "Stake required");
+
+        bytes32 key = _bountyKey(taskId);
+        require(_bountyIdx[key] > 0, "Not a bounty");
+
+        Task storage task = tasks[taskId];
+        require(bytes(task.taskId).length > 0, "Task not found");
+        require(task.status == TaskStatus.Created, "Not available");
+
+        task.assignedAgentDID = agentDID;
+        task.assignedAgent = msg.sender;
+        task.status = TaskStatus.InProgress;
+
+        _removeBounty(key);
+        emit TaskClaimed(taskId, agentDID, msg.sender);
+    }
+
+    function cancelBounty(string memory taskId) public {
+        bytes32 key = _bountyKey(taskId);
+        require(_bountyIdx[key] > 0, "Not a bounty");
+
+        Task storage task = tasks[taskId];
+        require(bytes(task.taskId).length > 0, "Task not found");
+        require(task.creator == msg.sender, "Not creator");
+        require(task.status == TaskStatus.Created, "Cannot cancel");
+
+        uint256 amount = task.reward;
+        task.reward = 0;
+        task.status = TaskStatus.Cancelled;
+        _removeBounty(key);
+
+        (bool sent,) = msg.sender.call{value: amount}("");
+        require(sent, "Refund failed");
+
+        emit BountyCancelled(taskId, msg.sender, amount);
+    }
+
+    function getOpenBounties() public view returns (string[] memory) {
+        return _openBountyIds;
+    }
+
+    function getOpenBountyCount() public view returns (uint256) {
+        return _openBountyIds.length;
+    }
+
+    function isBounty(string memory taskId) public view returns (bool) {
+        return _bountyIdx[_bountyKey(taskId)] > 0;
+    }
+
+    // --- Read ---
+
     function getTask(string memory taskId) public view returns (Task memory) {
         require(bytes(tasks[taskId].taskId).length > 0, "Task not found");
         return tasks[taskId];
@@ -222,6 +335,24 @@ contract TrustChain is IArbitrable {
             fee = amount;
         }
         return fee;
+    }
+
+    function _bountyKey(string memory taskId) internal pure returns (bytes32) {
+        return keccak256(bytes(taskId));
+    }
+
+    function _removeBounty(bytes32 key) internal {
+        uint256 idx = _bountyIdx[key] - 1;
+        uint256 lastIdx = _openBountyIds.length - 1;
+
+        if (idx != lastIdx) {
+            string memory lastId = _openBountyIds[lastIdx];
+            _openBountyIds[idx] = lastId;
+            _bountyIdx[_bountyKey(lastId)] = idx + 1;
+        }
+
+        _openBountyIds.pop();
+        delete _bountyIdx[key];
     }
 
     function _payoutWithFee(string memory taskId, address recipient, uint256 grossAmount) internal returns (uint256) {

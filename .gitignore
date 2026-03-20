@@ -14,6 +14,7 @@ coverage/
 backend/cache/
 !backend/src/cache/
 artifacts/
+cache/
 typechain-types/
 docs/internal/
 docs/economics/

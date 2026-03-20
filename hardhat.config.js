@@ -3,6 +3,9 @@ require('dotenv').config();
 
 module.exports = {
   solidity: '0.8.20',
+  sourcify: {
+    enabled: true,
+  },
   paths: {
     sources: './contracts',
     artifacts: './artifacts',

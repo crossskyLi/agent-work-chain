@@ -19,6 +19,22 @@ const TRUST_CHAIN_ABI = [
   'function estimateFee(uint256 amount) view returns (uint256)',
   'function setFeeConfig(address _feeRecipient, uint16 _feeBps, uint256 _feeCapWei)',
 
+  // Bounty Board
+  'function createBounty(string taskId, string description, string inputCID) payable',
+  'function claimTask(string taskId, string agentDID)',
+  'function cancelBounty(string taskId)',
+  'function getOpenBounties() view returns (string[])',
+  'function getOpenBountyCount() view returns (uint256)',
+  'function isBounty(string taskId) view returns (bool)',
+
+  // Agent Staking
+  'function stake() payable',
+  'function withdrawStake(uint256 amount)',
+  'function slashStake(address agent, uint256 amount)',
+  'function setMinStake(uint256 _minStake)',
+  'function minStake() view returns (uint256)',
+  'function stakes(address) view returns (uint256)',
+
   'event TaskCreated(string taskId, address creator, uint256 reward)',
   'event TaskAssigned(string taskId, string agentDID, address agentAddress)',
   'event InputSubmitted(string taskId, string inputCID)',
@@ -29,6 +45,13 @@ const TRUST_CHAIN_ABI = [
   'event FeeConfigUpdated(address feeRecipient, uint16 feeBps, uint256 feeCapWei)',
   'event FeeCharged(string taskId, address recipient, uint256 feeAmount)',
   'event Ruling(address indexed _arbitrator, uint256 indexed _disputeID, uint256 _ruling)',
+  'event BountyCreated(string taskId, address creator, uint256 reward)',
+  'event TaskClaimed(string taskId, string agentDID, address agentAddress)',
+  'event BountyCancelled(string taskId, address creator, uint256 refund)',
+  'event AgentStaked(address indexed agent, uint256 amount, uint256 total)',
+  'event AgentWithdrew(address indexed agent, uint256 amount, uint256 remaining)',
+  'event StakeSlashed(address indexed agent, uint256 slashed, uint256 remaining)',
+  'event MinStakeUpdated(uint256 oldMin, uint256 newMin)',
 ];
 
 const TASK_STATUS = {

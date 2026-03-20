@@ -1,0 +1,13 @@
+{
+  "name": "@agent-work-chain/mcp-bounty-board",
+  "version": "0.1.0",
+  "description": "MCP server for AI agents to discover and claim bounties on Agent Work Chain",
+  "main": "bounty-board-mcp.js",
+  "bin": {
+    "awc-bounty-mcp": "./bounty-board-mcp.js"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0"
+  },
+  "license": "MIT"
+}

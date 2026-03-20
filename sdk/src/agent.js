@@ -86,6 +86,33 @@ class TrustChainAgent {
     return this._identity.updateCapabilities(capabilities);
   }
 
+  // ========== Staking ==========
+
+  async stake(amountEth) {
+    const tx = await this._contract.stake({
+      value: ethers.parseEther(String(amountEth)),
+    });
+    const receipt = await tx.wait();
+    return { transactionHash: receipt.hash };
+  }
+
+  async withdrawStake(amountEth) {
+    const tx = await this._contract.withdrawStake(ethers.parseEther(String(amountEth)));
+    const receipt = await tx.wait();
+    return { transactionHash: receipt.hash };
+  }
+
+  async getStake(address) {
+    const addr = address || this._signer.address;
+    const wei = await this._contract.stakes(addr);
+    return { address: addr, stakeWei: wei.toString(), stakeEth: ethers.formatEther(wei) };
+  }
+
+  async getMinStake() {
+    const wei = await this._contract.minStake();
+    return { minStakeWei: wei.toString(), minStakeEth: ethers.formatEther(wei) };
+  }
+
   // ========== Layer 2: Tasks (Creator) ==========
 
   async createTask({ taskId, description, inputData, reward }) {
@@ -108,6 +135,51 @@ class TrustChainAgent {
     const tx = await this._contract.assignTask(taskId, agentDID, agentAddress);
     const receipt = await tx.wait();
     return { transactionHash: receipt.hash };
+  }
+
+  // ========== Bounty Board (Creator) ==========
+
+  async createBounty({ taskId, description, inputData, reward }) {
+    const id = taskId || ethers.hexlify(ethers.randomBytes(16)).slice(2);
+    let inputCID = '';
+
+    if (inputData && this._ipfs) {
+      inputCID = await this._ipfs.pin(inputData);
+    }
+
+    const tx = await this._contract.createBounty(id, description, inputCID, {
+      value: ethers.parseEther(String(reward)),
+    });
+    const receipt = await tx.wait();
+
+    return { taskId: id, inputCID, transactionHash: receipt.hash };
+  }
+
+  async cancelBounty(taskId) {
+    const tx = await this._contract.cancelBounty(taskId);
+    const receipt = await tx.wait();
+    return { transactionHash: receipt.hash };
+  }
+
+  // ========== Bounty Board (Agent: competitive claiming) ==========
+
+  async claimTask(taskId) {
+    const tx = await this._contract.claimTask(taskId, this.did);
+    const receipt = await tx.wait();
+    return { transactionHash: receipt.hash };
+  }
+
+  async getOpenBounties() {
+    return this._contract.getOpenBounties();
+  }
+
+  async getOpenBountyCount() {
+    const count = await this._contract.getOpenBountyCount();
+    return Number(count);
+  }
+
+  async isBounty(taskId) {
+    return this._contract.isBounty(taskId);
   }
 
   async releaseReward(taskId) {
