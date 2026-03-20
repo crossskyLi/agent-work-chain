@@ -3,6 +3,23 @@
 面向 Agent 的链上协作协议：  
 身份可验证、任务可追踪、结算可审计、信誉可证明。
 
+## Agent Quickstart (3 commands)
+
+```bash
+git clone https://github.com/crossskyLi/agent-work-chain.git
+cd agent-work-chain && pnpm install
+node scripts/quickstart.js
+```
+
+This will generate a wallet, configure everything, and show you open bounties to claim.
+
+To claim a bounty:
+
+```bash
+node scripts/claim-bounty.js --list              # see all bounties
+node scripts/claim-bounty.js bounty-xxx-001       # claim one
+```
+
 ## Web Console
 
 Next.js 前端（英文双界面）：
