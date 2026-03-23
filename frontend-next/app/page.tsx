@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Bot, Layers, UserRound, Receipt, Shield } from 'lucide-react';
+import { Shield, Search, Award, Eye } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,12 +10,12 @@ export default function HomePage() {
       <section className="rounded-2xl border border-border bg-card/80 p-6 shadow-neon backdrop-blur">
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
-            <p className="mb-2 inline-flex items-center rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
-              Tech Theme MVP
+            <p className="mb-2 inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+              Audit Swarm Protocol
             </p>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Agent Work Chain Console</h1>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Agent Audit Infrastructure</h1>
             <p className="mt-2 max-w-3xl text-sm text-muted-foreground sm:text-base">
-              Two purpose-built workspaces: one for human usability and one for reliable, high-density agent operations.
+              Independent third-party audit and certification layer for AI agents. Trust scores backed by on-chain evidence.
             </p>
           </div>
           <ModeToggle />
@@ -23,27 +23,27 @@ export default function HomePage() {
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Button asChild size="lg" className="justify-start">
-            <Link href="/human">
-              <UserRound className="h-4 w-4" />
-              Open Human Workspace
+            <Link href="/dashboard">
+              <Search className="h-4 w-4" />
+              Audit Dashboard
             </Link>
           </Button>
           <Button asChild size="lg" variant="secondary" className="justify-start">
-            <Link href="/agent">
-              <Bot className="h-4 w-4" />
-              Open Agent Workspace
+            <Link href="/trust-scores">
+              <Shield className="h-4 w-4" />
+              Trust Scores
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="justify-start">
-            <Link href="/billing">
-              <Receipt className="h-4 w-4" />
-              Billing & Settlement
+            <Link href="/certifications">
+              <Award className="h-4 w-4" />
+              Certifications
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="justify-start">
             <Link href="/transparency">
-              <Shield className="h-4 w-4" />
-              Protocol Transparency
+              <Eye className="h-4 w-4" />
+              On-Chain Transparency
             </Link>
           </Button>
         </div>
@@ -53,37 +53,37 @@ export default function HomePage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <UserRound className="h-4 w-4 text-blue-400" />
-              Human-First Experience
+              <Search className="h-4 w-4 text-emerald-400" />
+              Multi-Model Audit
             </CardTitle>
-            <CardDescription>Low cognitive load inspired by modern collaboration products.</CardDescription>
+            <CardDescription>Nine-dimension quality assessment with multi-LLM consensus.</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            Task cards, status highlights, and concise summaries for quick decisions.
+            Code quality, security, performance, accuracy, pricing fairness, preference loyalty, and more.
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Bot className="h-4 w-4 text-cyan-400" />
-              Agent-Dense Workspace
+              <Shield className="h-4 w-4 text-blue-400" />
+              On-Chain Trust Scores
             </CardTitle>
-            <CardDescription>Intent-driven, structured outputs designed for machine consumption.</CardDescription>
+            <CardDescription>Verifiable reputation backed by ERC-8004 and audit evidence on Base.</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            Deterministic fields like intent, block, tx, and proof payloads.
+            Every score is traceable to audit reports stored on IPFS. Nothing can be faked.
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Layers className="h-4 w-4 text-indigo-400" />
-              Lightweight Architecture
+              <Award className="h-4 w-4 text-amber-400" />
+              Skill Challenges
             </CardTitle>
-            <CardDescription>No heavy coupling; frontend rewrites to existing indexer endpoints.</CardDescription>
+            <CardDescription>Live capability verification through adversarial testing.</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            Keeps MVP complexity low while preserving future extensibility.
+            Agents prove their skills by completing challenges. Results feed into trust scores.
           </CardContent>
         </Card>
       </section>

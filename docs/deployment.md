@@ -1,95 +1,63 @@
-# 部署指南（pnpm）
+# Deployment Guide — Audit Swarm
 
-## 1) 安装依赖
+## Prerequisites
 
-```bash
-pnpm install
-pnpm -C backend install
-pnpm -C sdk install
-```
+- Node.js 18+
+- pnpm
+- A Base Sepolia wallet with testnet ETH
 
-## 2) 配置环境变量
+## Local Development
 
 ```bash
-cp .env.example .env
-```
+# Terminal 1: Start local Hardhat node
+pnpm hardhat:node
 
-必填项：
-- `DEPLOYER_PRIVATE_KEY`
-- `KLEROS_ARBITRATOR_ADDRESS`
-- `FEE_RECIPIENT`（你的手续费钱包，不填默认部署者）
-- `FEE_BPS`（默认 10 = 0.1%）
-- `FEE_CAP_ETH`（手续费封顶，例如 0.001）
-
-## 3) 本地开发部署
-
-```bash
-pnpm compile
+# Terminal 2: Deploy contracts
 pnpm deploy:local
-pnpm test:e2e:local
+
+# Terminal 3: Start backend indexer
+cd backend && pnpm dev
+
+# Terminal 4: Start frontend
+pnpm web:dev
 ```
 
-## 4) Base Sepolia 部署
+## Deploy to Base Sepolia
 
 ```bash
+# Set environment variables
+export DEPLOYER_PRIVATE_KEY=0x...
+export BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
+
+# Deploy
 pnpm deploy:base-sepolia
 ```
 
-部署后会生成 `deployment-base-sepolia.json`，请把地址写回 `.env`：
-- `TRUSTCHAIN_ADDRESS`
+The deployment script saves the contract address to `history/deployments/deployment-base-sepolia.json`.
 
-## 5) SDK 联调（真实链）
-
-准备两个 Agent 钱包：
-- `AGENT_A_PRIVATE_KEY`
-- `AGENT_B_PRIVATE_KEY`
-
-并配置：
-- `PINATA_JWT`
-- `PINATA_GATEWAY`
-
-然后执行：
-
-```bash
-pnpm test:sdk:sepolia
-```
-
-这个脚本会完整跑一遍：注册 → 创建任务 → 分配 → 完成 → 释放奖励。
-
-## 6) 启动 indexer + 官网
-
-```bash
-TRUSTCHAIN_ADDRESS=0x... pnpm -C backend start
-```
-
-访问：
-- 官网：`http://localhost:3000`
-- 健康检查：`http://localhost:3000/health`
-- 任务发现：`/v1/tasks`
-
-## 环境变量参考
+## Environment Variables
 
 ```env
-BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-BASE_RPC_URL=https://mainnet.base.org
-
+# Required for deployment
 DEPLOYER_PRIVATE_KEY=0x...
-BACKEND_PRIVATE_KEY=0x...
-AGENT_A_PRIVATE_KEY=0x...
-AGENT_B_PRIVATE_KEY=0x...
+BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
 
-TRUSTCHAIN_ADDRESS=0x...
-KLEROS_ARBITRATOR_ADDRESS=0x...
+# Required for indexer
+AUDIT_REGISTRY_ADDRESS=0x...
+PORT=3000
 
-FEE_RECIPIENT=0x...
-FEE_BPS=10
-FEE_CAP_ETH=0.001
+# Required for frontend
+NEXT_PUBLIC_API_BASE=http://localhost:3000
+NEXT_PUBLIC_AUDIT_REGISTRY_ADDRESS=0x...
+NEXT_PUBLIC_RPC_URL=https://sepolia.base.org
 
-DID_REGISTRY_ADDRESS=0xd1D374DDE031075157fDb64536eF5cC13Ae75000
-EAS_CONTRACT_ADDRESS=0x4200000000000000000000000000000000000021
-EAS_SCHEMA_REGISTRY_ADDRESS=0x4200000000000000000000000000000000000020
-EAS_SCHEMA_UID=
-
+# Optional: IPFS
 PINATA_JWT=...
 PINATA_GATEWAY=...
+```
+
+## MCP Server
+
+```bash
+AUDIT_INDEXER_BASE=http://localhost:3000 node mcp/audit-mcp-server.js
 ```

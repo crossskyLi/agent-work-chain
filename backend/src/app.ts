@@ -5,49 +5,42 @@ import compression from 'compression';
 import path from 'path';
 import { errorHandler } from './middleware/error-handler';
 import { requestLogger } from './middleware/logger';
-import { globalLimiter, queryLimiter } from './middleware/rate-limit';
+import { globalLimiter } from './middleware/rate-limit';
 import { metricsMiddleware } from './observability/metrics';
-import taskRoutes from './routes/tasks';
-import agentRoutes from './routes/agents';
-import eventRoutes from './routes/events';
-import queryRoutes from './routes/query';
-import billingRoutes from './routes/billing';
+import auditRoutes from './routes/audit';
+import challengeRoutes from './routes/challenge';
+import trustScoreRoutes from './routes/trust-score';
+import auditorsRoutes from './routes/auditors';
+import certificationsRoutes, { overviewRouter } from './routes/certifications';
 import healthRoutes from './routes/health';
 import metricsRoutes from './routes/metrics';
 
 const app = express();
 
-// trust proxy when behind reverse proxy / load balancer
 app.set('trust proxy', 1);
 
-// --- security ---
 app.use(helmet());
 app.use(cors());
 
-// --- parsing & compression ---
 app.use(express.json({ limit: '1mb' }));
 app.use(compression());
 
-// --- observability ---
 app.use(requestLogger);
 app.use(metricsMiddleware);
 
-// --- rate limiting ---
 app.use(globalLimiter);
 
-// --- static ---
 app.use('/docs', express.static(path.join(__dirname, '..', '..', 'docs')));
 
-// --- routes ---
 app.use('/health', healthRoutes);
 app.use('/metrics', metricsRoutes);
-app.use('/v1/tasks', taskRoutes);
-app.use('/v1/agents', agentRoutes);
-app.use('/v1/events', eventRoutes);
-app.use('/v1/query', queryLimiter, queryRoutes);
-app.use('/v1/billing', billingRoutes);
+app.use('/v1/audits', auditRoutes);
+app.use('/v1/challenges', challengeRoutes);
+app.use('/v1/trust-score', trustScoreRoutes);
+app.use('/v1/auditors', auditorsRoutes);
+app.use('/v1/certifications', certificationsRoutes);
+app.use('/v1/audit-protocol', overviewRouter);
 
-// --- error handler (must be last) ---
 app.use(errorHandler);
 
 export default app;

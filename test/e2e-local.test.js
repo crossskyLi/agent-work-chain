@@ -1,62 +1,42 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
-describe('TrustChain E2E Local Workflow', function () {
-  it('simulates two agents completing a task with protocol fee cap', async function () {
-    const [deployer, creator, agentRunner, feeWallet] = await ethers.getSigners();
+describe('Audit Swarm E2E (local)', function () {
+  it('deploys registry + mock target, full audit and certification flow', async function () {
+    const [deployer, auditor] = await ethers.getSigners();
 
-    const MockArbitrator = await ethers.getContractFactory('MockArbitrator');
-    const mockArb = await MockArbitrator.connect(deployer).deploy();
-    await mockArb.waitForDeployment();
+    const AuditRegistry = await ethers.getContractFactory('AuditRegistry');
+    const registry = await AuditRegistry.deploy();
+    await registry.waitForDeployment();
 
-    const TrustChain = await ethers.getContractFactory('TrustChain');
-    const feeBps = 10; // 0.1%
-    const feeCapWei = ethers.parseEther('0.0005');
-    const trust = await TrustChain.connect(deployer).deploy(
-      await mockArb.getAddress(),
-      '0x00',
-      feeWallet.address,
-      feeBps,
-      feeCapWei
-    );
-    await trust.waitForDeployment();
+    const MockAuditTarget = await ethers.getContractFactory('MockAuditTarget');
+    const mockTarget = await MockAuditTarget.deploy('TestAgent');
+    await mockTarget.waitForDeployment();
+    const targetAddr = await mockTarget.getAddress();
 
-    const taskId = 'task-local-e2e-001';
-    const reward = ethers.parseEther('1.0');
+    expect(await mockTarget.name()).to.equal('TestAgent');
 
-    // 1) Creator creates task with escrow
-    await trust.connect(creator).createTask(taskId, 'Summarize a document', 'QmInputHash', {
-      value: reward,
-    });
+    await registry.connect(deployer).setMinStake(0n);
+    await registry.connect(auditor).registerAuditor('performance,ethics', { value: ethers.parseEther('0.05') });
 
-    // 2) Creator assigns task to agent
-    await trust.connect(creator).assignTask(taskId, `did:ethr:${agentRunner.address}`, agentRunner.address);
+    const auditId = 'e2e-audit-001';
+    const overallScore = 92;
+    await registry
+      .connect(auditor)
+      .submitAudit(auditId, targetAddr, 'QmE2EReport', overallScore, '{"latency":90}');
 
-    // 3) Agent completes task
-    await trust.connect(agentRunner).completeTask(taskId, 'QmOutputHash');
+    await registry.connect(deployer).confirmAudit(auditId);
 
-    // 4) Creator releases reward
-    const feeBefore = await ethers.provider.getBalance(feeWallet.address);
-    const agentBefore = await ethers.provider.getBalance(agentRunner.address);
+    const [avgScore, auditCount] = await registry.getTrustScore(targetAddr);
+    expect(Number(avgScore)).to.equal(overallScore);
+    expect(Number(auditCount)).to.equal(1);
 
-    const tx = await trust.connect(creator).releaseReward(taskId);
-    await tx.wait();
+    const latest = await ethers.provider.getBlock('latest');
+    const validUntil = BigInt(latest.timestamp) + 86400n * 30n;
+    await registry.connect(deployer).issueCertification(targetAddr, 'audit-pass', validUntil);
 
-    const feeAfter = await ethers.provider.getBalance(feeWallet.address);
-    const agentAfter = await ethers.provider.getBalance(agentRunner.address);
-
-    // fee should be min(1 ETH * 0.1%, cap) = min(0.001, 0.0005) = 0.0005 ETH
-    const expectedFee = feeCapWei;
-    const expectedAgentNet = reward - expectedFee;
-
-    expect(feeAfter - feeBefore).to.equal(expectedFee);
-    expect(agentAfter - agentBefore).to.equal(expectedAgentNet);
-
-    // 5) Task should be resolved and escrow emptied
-    const task = await trust.getTask(taskId);
-    expect(Number(task.status)).to.equal(4); // Resolved
-    expect(task.reward).to.equal(0n);
-    expect(await ethers.provider.getBalance(await trust.getAddress())).to.equal(0n);
-
+    const [certValid, , until] = await registry.getCertification(targetAddr, 'audit-pass');
+    expect(certValid).to.equal(true);
+    expect(until).to.equal(validUntil);
   });
 });

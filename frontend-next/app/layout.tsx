@@ -4,8 +4,8 @@ import type { ReactNode } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Agent Work Chain Console',
-  description: 'Dual workspace for humans and agents',
+  title: 'Audit Swarm Console',
+  description: 'Independent third-party audit infrastructure for AI agents',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -12,17 +12,17 @@ router.get(
   '/',
   asyncHandler(async (_req, res) => {
     const db = getDb();
-    const taskCount = (
-      db.prepare('SELECT COUNT(*) as count FROM tasks').get() as { count: number }
+    const auditCount = (
+      db.prepare('SELECT COUNT(*) as count FROM audits').get() as { count: number }
     ).count;
-    const agentCount = (
-      db.prepare('SELECT COUNT(*) as count FROM agents').get() as { count: number }
+    const auditorCount = (
+      db.prepare('SELECT COUNT(*) as count FROM auditors').get() as { count: number }
     ).count;
 
     res.json({
       status: 'ok',
-      tasks: taskCount,
-      agents: agentCount,
+      audits: auditCount,
+      auditors: auditorCount,
       uptime: Math.floor((Date.now() - startedAt) / 1000),
     });
   }),
@@ -40,11 +40,11 @@ router.get(
       return;
     }
 
-    const taskCount = (
-      db.prepare('SELECT COUNT(*) as count FROM tasks').get() as { count: number }
+    const auditCount = (
+      db.prepare('SELECT COUNT(*) as count FROM audits').get() as { count: number }
     ).count;
-    const agentCount = (
-      db.prepare('SELECT COUNT(*) as count FROM agents').get() as { count: number }
+    const auditorCount = (
+      db.prepare('SELECT COUNT(*) as count FROM auditors').get() as { count: number }
     ).count;
     const eventCount = (
       db.prepare('SELECT COUNT(*) as count FROM events').get() as { count: number }
@@ -78,8 +78,8 @@ router.get(
       uptime: Math.floor((Date.now() - startedAt) / 1000),
       db: {
         writable: true,
-        tasks: taskCount,
-        agents: agentCount,
+        audits: auditCount,
+        auditors: auditorCount,
         events: eventCount,
         lastEventAt: latestEvent.ts,
       },

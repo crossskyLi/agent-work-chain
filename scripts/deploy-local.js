@@ -3,55 +3,34 @@ const fs = require('fs');
 const path = require('path');
 
 async function main() {
-  const [deployer, arbitrator] = await hre.ethers.getSigners();
-
+  const [deployer] = await hre.ethers.getSigners();
   console.log('Deploying on local Hardhat network...');
   console.log(`Deployer: ${deployer.address}`);
-  console.log(`Mock Arbitrator: ${arbitrator.address}`);
 
-  const MockArbitrator = await hre.ethers.getContractFactory('MockArbitrator');
-  const mockArbitrator = await MockArbitrator.deploy();
-  await mockArbitrator.waitForDeployment();
-  const arbAddress = await mockArbitrator.getAddress();
-  console.log(`MockArbitrator deployed to: ${arbAddress}`);
+  const AuditRegistry = await hre.ethers.getContractFactory('AuditRegistry');
+  const registry = await AuditRegistry.deploy();
+  await registry.waitForDeployment();
+  const address = await registry.getAddress();
+  console.log(`AuditRegistry deployed to: ${address}`);
 
-  const feeRecipient = deployer.address;
-  const feeBps = 10; // 0.1%
-  const feeCapWei = hre.ethers.parseEther('0.001');
-
-  const TrustChain = await hre.ethers.getContractFactory('TrustChain');
-  const trustChain = await TrustChain.deploy(
-    arbAddress,
-    '0x00',
-    feeRecipient,
-    feeBps,
-    feeCapWei
-  );
-  await trustChain.waitForDeployment();
-  const tcAddress = await trustChain.getAddress();
-  console.log(`TrustChain deployed to: ${tcAddress}`);
+  const MockAuditTarget = await hre.ethers.getContractFactory('MockAuditTarget');
+  const mockTarget = await MockAuditTarget.deploy('TestAgent');
+  await mockTarget.waitForDeployment();
+  console.log(`MockAuditTarget deployed to: ${await mockTarget.getAddress()}`);
 
   const deployment = {
     network: 'localhost',
     chainId: 31337,
-    trustChainAddress: tcAddress,
-    mockArbitratorAddress: arbAddress,
-    feeConfig: {
-      feeRecipient,
-      feeBps,
-      feeCapWei: feeCapWei.toString(),
-    },
+    auditRegistryAddress: address,
+    mockTargetAddress: await mockTarget.getAddress(),
     deployer: deployer.address,
     deployedAt: new Date().toISOString(),
   };
-
   const historyDir = path.join(__dirname, '..', 'history', 'deployments');
   fs.mkdirSync(historyDir, { recursive: true });
-  const outPath = path.join(historyDir, 'deployment-localhost.json');
-  fs.writeFileSync(outPath, JSON.stringify(deployment, null, 2));
-  console.log(`Deployment info saved to ${outPath}`);
+  fs.writeFileSync(path.join(historyDir, 'deployment-localhost.json'), JSON.stringify(deployment, null, 2));
+  console.log('Deployment info saved');
 }
-
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

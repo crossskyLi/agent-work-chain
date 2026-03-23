@@ -1,7 +1,7 @@
 {
   "name": "agent-work-chain",
-  "version": "0.1.0",
-  "description": "Decentralized trust infrastructure for AI agents",
+  "version": "0.2.0",
+  "description": "Audit Swarm — Independent third-party audit and certification infrastructure for AI agents on Base L2",
   "scripts": {
     "compile": "hardhat compile",
     "test:contracts": "hardhat test",
@@ -9,8 +9,7 @@
     "deploy:local": "hardhat run scripts/deploy-local.js --network hardhat",
     "deploy:base-sepolia": "hardhat run scripts/deploy.js --network base-sepolia",
     "deploy:base": "hardhat run scripts/deploy.js --network base",
-    "test:sdk:sepolia": "node scripts/sepolia-sdk-smoke.js",
-    "mcp:query": "node mcp/query-mcp-server.js",
+    "mcp:audit": "node mcp/audit-mcp-server.js",
     "hardhat:node": "hardhat node",
     "site:dev": "pnpm -C backend dev",
     "web:dev": "pnpm --filter @agent-work-chain/frontend-next dev",

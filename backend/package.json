@@ -1,7 +1,7 @@
 {
   "name": "@agent-work-chain/indexer",
   "version": "0.2.0",
-  "description": "Event indexer and discovery service for Agent Work Chain",
+  "description": "Audit Swarm indexer — indexes AuditRegistry events and serves audit data API",
   "main": "src/index.ts",
   "scripts": {
     "start": "tsx src/index.ts",
@@ -11,11 +11,7 @@
     "start:prod": "pm2 start ecosystem.config.cjs --env production",
     "stop:prod": "pm2 stop ecosystem.config.cjs",
     "reload:prod": "pm2 reload ecosystem.config.cjs",
-    "simulate:agents": "node ../playground/simulate-agent-registration.js",
-    "simulate:task": "node ../playground/simulate-task-request.js",
-    "simulate:lifecycle": "node ../playground/simulate-auto-lifecycle.js",
-    "agent:worker": "tsx scripts/agent-worker.ts",
-    "migrate:sqlite:pg": "tsx scripts/migrate-sqlite-to-postgres.ts"
+    "seed": "tsx scripts/seed-mock-data.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.0.0",

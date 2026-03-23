@@ -7,29 +7,29 @@ import { logger } from './middleware/logger';
 
 const PORT = process.env.PORT || 3000;
 const RPC_URL = process.env.BASE_SEPOLIA_RPC_URL || 'https://sepolia.base.org';
-const TRUSTCHAIN_ADDRESS = process.env.TRUSTCHAIN_ADDRESS;
+const AUDIT_REGISTRY_ADDRESS = process.env.AUDIT_REGISTRY_ADDRESS;
 
 let listener: EventListener | null = null;
 
 async function main() {
   await ensurePgSchema();
 
-  if (TRUSTCHAIN_ADDRESS) {
+  if (AUDIT_REGISTRY_ADDRESS) {
     listener = new EventListener({
       rpcUrl: RPC_URL,
-      trustChainAddress: TRUSTCHAIN_ADDRESS,
+      auditRegistryAddress: AUDIT_REGISTRY_ADDRESS,
     });
     listener.start();
   } else {
     logger.warn(
-      'TRUSTCHAIN_ADDRESS is not set. Running in docs-only mode (no chain indexing).',
+      'AUDIT_REGISTRY_ADDRESS is not set. Running in docs-only mode (no chain indexing).',
     );
   }
 
   const server = app.listen(PORT, () => {
-    logger.info(`Indexer running on port ${PORT}`);
-    if (TRUSTCHAIN_ADDRESS) {
-      logger.info(`Listening to TrustChain at ${TRUSTCHAIN_ADDRESS}`);
+    logger.info(`Audit Indexer running on port ${PORT}`);
+    if (AUDIT_REGISTRY_ADDRESS) {
+      logger.info(`Listening to AuditRegistry at ${AUDIT_REGISTRY_ADDRESS}`);
     }
   });
 
@@ -54,7 +54,7 @@ async function main() {
   process.on('SIGINT', shutdown);
 }
 main().catch((err) => {
-  logger.error({ err }, 'failed to start indexer');
+  logger.error({ err }, 'failed to start audit indexer');
   process.exit(1);
 });
 

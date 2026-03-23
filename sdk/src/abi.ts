@@ -1,0 +1,18 @@
+export const AUDIT_REGISTRY_ABI = [
+  'event AuditorRegistered(address indexed auditor, string specialties, uint256 stake)',
+  'event AuditSubmitted(string auditId, address indexed auditor, address indexed targetAgent, uint8 overallScore)',
+  'event AuditConfirmed(string auditId)',
+  'event AuditDisputeRaised(string auditId, string reason)',
+  'event CertificationIssued(address indexed agent, string certType, uint256 validUntil)',
+  'function registerAuditor(string specialties) payable',
+  'function submitAudit(string auditId, address targetAgent, string reportCID, uint8 overallScore, string dimensions)',
+  'function confirmAudit(string auditId)',
+  'function disputeAudit(string auditId, string reason)',
+  'function getTrustScore(address agent) view returns (uint8 avgScore, uint256 auditCount)',
+  'function issueCertification(address agent, string certType, uint256 validUntil)',
+  'function getCertification(address agent, string certType) view returns (bool valid, uint256 issuedAt, uint256 validUntil)',
+  'function getAuditor(address) view returns (tuple(string specialties, uint256 stake, uint256 registeredAt, uint256 totalAudits, uint16 accuracyScore, bool registered))',
+  'function minStake() view returns (uint256)',
+  'function owner() view returns (address)',
+  'function setMinStake(uint256)',
+] as const;

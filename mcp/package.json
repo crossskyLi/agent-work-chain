@@ -1,23 +1,22 @@
 {
-  "name": "awc-bounty-board-mcp",
+  "name": "awc-audit-mcp",
   "version": "1.0.0",
-  "description": "MCP server for AI agents to discover, claim, and complete on-chain bounties on Agent Work Chain (Base Sepolia)",
-  "main": "bounty-board-mcp.js",
+  "description": "MCP server for querying AI agent audit data, trust scores, and certifications from Agent Work Chain",
+  "main": "audit-mcp-server.js",
   "bin": {
-    "awc-bounty-board-mcp": "./bounty-board-mcp.js"
+    "awc-audit-mcp": "./audit-mcp-server.js"
   },
-  "mcpName": "awc-bounty-board-mcp",
+  "mcpName": "awc-audit-mcp",
   "keywords": [
     "mcp",
     "mcp-server",
     "ai-agent",
-    "bounty",
+    "audit",
+    "trust-score",
+    "certification",
     "blockchain",
-    "ethereum",
     "base",
-    "smart-contract",
-    "agent-work-chain",
-    "on-chain"
+    "agent-work-chain"
   ],
   "repository": {
     "type": "git",
