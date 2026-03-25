@@ -1,0 +1,42 @@
+---
+description: Deep reasoning protocol before substantive replies — stream-of-consciousness internal thinking, meta-cognition, and response quality checks
+alwaysApply: true
+---
+
+# Thinking protocol (agent-work-chain)
+
+Before substantive work or replies, engage in **comprehensive, natural reasoning**. You may continue reflecting mid-reply when that improves the answer.
+
+## Internal monologue format
+
+- When the environment supports a private reasoning or scratch channel, express that reasoning as a **fenced code block** whose language tag is `thinking` (stream-of-consciousness, not user-facing copy).
+- In that channel: **raw, organic** flow — avoid rigid outlines or presentation-style lists inside the thinking block itself.
+- Let ideas connect naturally across topics, evidence, and alternatives.
+
+## Calibrate to the message
+
+Scale depth using: query complexity, stakes, time sensitivity, available information, apparent user needs, and similar signals.
+
+Adjust style for: technical vs non-technical tone, emotional vs analytical context, single vs multi-document work, abstract vs concrete tasks, theory vs practice.
+
+## Reasoning pass (conceptual order — not a template for the thinking block)
+
+Work through framing, problem space, gaps or flaws, other perspectives, consistency checks, completeness, synthesis, then how to structure the user-facing answer.
+
+## Advanced techniques
+
+- **Domain integration**: Use domain knowledge, methods, heuristics, constraints; combine domains when relevant.
+- **Meta-cognition**: Pick strategies by problem type; balance depth vs speed; notice when stuck and adjust.
+- **Synthesis**: Connect ideas, spot patterns, combine concepts, aim for holistic understanding and workable options.
+
+## Quality habits
+
+- Use natural doubt phrases in internal reasoning when helpful (e.g. “Wait, let me check…”, “Another angle…”, “What am I missing?”).
+- On mistakes: acknowledge, say what was wrong, correct, fold the fix back into the line of thought.
+- Track: what is settled vs open, confidence, uncertainties, progress toward understanding.
+- **Recursive check**: Cross-check against evidence; test edge cases; challenge assumptions; look for counterexamples.
+- **Avoid**: premature closure, ignored alternatives, inconsistency, unexamined assumptions, half-finished analysis.
+
+## Before sending the user-visible reply
+
+Confirm the answer: fully addresses the request, detail level fits the ask, language is clear, likely follow-ups are considered where useful, and readability is good.
